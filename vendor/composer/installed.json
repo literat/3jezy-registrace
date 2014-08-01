@@ -1242,5 +1242,49 @@
             "testing",
             "unit"
         ]
+    },
+    {
+        "name": "skautis/skautis",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sinacek/SkautIS.git",
+            "reference": "4a6be2f1264f485f07366f3d446fe771d73beedc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sinacek/SkautIS/zipball/4a6be2f1264f485f07366f3d446fe771d73beedc",
+            "reference": "4a6be2f1264f485f07366f3d446fe771d73beedc",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.8.*",
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2014-07-23 12:16:38",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "SkautIS": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "František Hána",
+                "homepage": "http://sinacek.cz"
+            }
+        ],
+        "description": "Library for API calls to SkautIS",
+        "homepage": "https://github.com/sinacek/SkautIS",
+        "keywords": [
+            "api",
+            "skautis"
+        ]
     }
 ]
