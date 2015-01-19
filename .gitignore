@@ -1,3 +1,3 @@
-composer.*
 *.sublime*
 temp
+vendor
