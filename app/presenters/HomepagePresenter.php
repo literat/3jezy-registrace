@@ -9,9 +9,8 @@ use Nette,
 /**
  * Homepage presenter.
  */
-class HomepagePresenter extends BasePresenter
+class HomepagePresenter extends BaseSecuredPresenter
 {
-
 	public function renderDefault()
 	{
 		$this->template->anyVariable = 'any value';
