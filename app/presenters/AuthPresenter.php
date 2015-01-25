@@ -2,13 +2,15 @@
 
 namespace App\Presenters;
 
+use Tracy\Debugger;
+use Skautis;
+use SkautisAuth;
 
 /**
- * SkautIS auth presenters.
+ * SkautIS Auth presenters.
  */
-class AuthPresenter extends BaseSecuredPresenter
+class AuthPresenter extends BasePresenter
 {
-
 
 	protected function startup()
 	{
@@ -17,52 +19,42 @@ class AuthPresenter extends BaseSecuredPresenter
 
 
 	/**
-	 * pokud je uziatel uz prihlasen, staci udelat referesh
-	 * @param string $backlink
-	 * @param bool $final - je to konečné přesměrování? použít při problémem se zacyklením
-	 */
-	public function actionDefault($backlink)
-	{
-		if ($this->user->isLoggedIn()) {
-			if ($backlink) {
-				$this->restoreRequest($backlink);
-			}
-		}
-		$this->redirect(':Default:');
-	}
-
-
-	/**
 	 * přesměruje na stránku s přihlášením
-	 * @param string $backlink
+	 * Redirects to login page
+	 *
+	 * @param  	string  $backlink
+	 * @return  void
 	 */
-	function actionLogOnSkautIs($backlink = NULL)
+	function actionSkautisLogin($backlink = NULL)
 	{
 		$this->redirectUrl($this->context->authService->getLoginUrl($backlink));
 	}
 
 
 	/**
-	 * zajistuje spracovani prihlaseni na skautIS
-	 * @param string $ReturnUrl
+	 * Handle SkautIS login process
+	 *
+	 * @param   string  $ReturnUrl
+	 * @return  void
 	 */
 	function actionSkautIS($ReturnUrl = NULL)
 	{
 		$post = $this->request->post;
-		if (!isset($post['skautIS_Token'])) { //pokud není nastavený token, tak zde nemá co dělat
-			$this->redirect(":Default:");
+		// if token is not set - get out from here - must log in
+		if (!isset($post['skautIS_Token'])) {
+			$this->redirect(":Login:");
 		}
-//        Debugger::log("AuthP: ".$post['skautIS_Token']." / ". $post['skautIS_IDRole'] . " / " . $post['skautIS_IDUnit'], "auth");
+		//Debugger::log("AuthP: ".$post['skautIS_Token']." / ". $post['skautIS_IDRole'] . " / " . $post['skautIS_IDUnit'], "auth");
 		try {
 			$this->context->authService->setInit($post);
 
 			if (!$this->context->userService->isLoggedIn()) {
-				throw new \Skautis\Exception\AuthenticationException("Nemáte platné přihlášení do skautISu");
+				throw new Skautis\Exception\AuthenticationException("Nemáte platné přihlášení do skautISu");
 			}
 			$me = $this->context->userService->getPersonalDetail();
 
 			$this->user->setExpiration('+ 29 minutes'); // nastavíme expiraci
-			$this->user->setAuthenticator(new \Sinacek\SkautisAuthenticator());
+			$this->user->setAuthenticator(new SkautisAuth\SkautisAuthenticator());
 			$this->user->login($me);
 
 			if (isset($ReturnUrl)) {
@@ -70,32 +62,43 @@ class AuthPresenter extends BaseSecuredPresenter
 			}
 		} catch (\Skautis\Exception\AuthenticationException $e) {
 			$this->flashMessage($e->getMessage(), "danger");
-			$this->redirect(":Auth:");
+			$this->redirect(":Auth:Login");
 		}
-		$this->presenter->redirect(':Default:');
+		$this->presenter->redirect(':Dashboard:');
 	}
 
 
 	/**
-	 * zajištuje odhlašení ze skautISu
-	 * SkautIS sem přesměruje po svém odhlášení
+	 * Handle log out from SkautIS
+	 * SkautIS redirects to this action after log out
+	 *
+	 * @param   void
+	 * @return  void
 	 */
-	function actionLogoutSIS()
+	function actionLogoutFromSkautis()
 	{
 		$this->redirectUrl($this->context->authService->getLogoutUrl());
 	}
 
-
+	/**
+	 * Log out from SkautIS
+	 *
+	 * @param   void
+	 * @return  void
+	 */
 	function actionSkautisLogout()
 	{
 		$this->user->logout(TRUE);
 		$this->context->userService->resetLoginData();
+		$this->presenter->flashMessage("Byl jsi úspěšně odhlášen ze SkautISu.");
+		/*
 		if ($this->request->post['skautIS_Logout']) {
 			$this->presenter->flashMessage("Byl jsi úspěšně odhlášen ze SkautISu.");
 		} else {
 			$this->presenter->flashMessage("Odhlášení ze skautISu se nezdařilo", "danger");
 		}
-		$this->redirect(":Default:");
+		*/
+		$this->redirect(":Login:");
 		//$this->redirectUrl($this->service->getLogoutUrl());
 	}
 
