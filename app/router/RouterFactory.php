@@ -20,7 +20,13 @@ class RouterFactory
 	public function createRouter()
 	{
 		$router = new RouteList();
-		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+		$router[] = new Route('index.php', 'Dashboard:default', Route::ONE_WAY);
+		$router[] = new Route('sign/<action>[/back-<backlink>]', array(
+			"presenter" => "Auth",
+			"action" => "default",
+			"backlink" => NULL
+		));
+		$router[] = new Route('<presenter>/<action>[/<id>]', 'Dashboard:default');
 		return $router;
 	}
 
