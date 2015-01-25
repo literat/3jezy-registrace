@@ -4,13 +4,29 @@ namespace App\Presenters;
 
 use Nette,
 	App\Model;
+use Tracy\Debugger;
+use SkautIS;
 
 
 /**
  * Sign in/out presenters.
  */
-class SignPresenter extends BasePresenter
+class LoginPresenter extends BasePresenter
 {
+
+	/**
+	 * Redirects user to Dashboard  when he/she is logged in
+	 * @param string $backlin
+	 */
+	public function actionDefault($backlink)
+	{
+		if ($this->user->isLoggedIn()) {
+			if ($backlink) {
+				$this->restoreRequest($backlink);
+			}
+			$this->redirect(':Dashboard:');
+		}
+	}
 
 
 	/**
@@ -51,7 +67,7 @@ class SignPresenter extends BasePresenter
 
 		try {
 			$this->getUser()->login($values->username, $values->password);
-			$this->redirect('Homepage:');
+			$this->redirect('Dashboard:');
 
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
@@ -105,7 +121,7 @@ class SignPresenter extends BasePresenter
 
 		try {
 			$this->getUser()->login($values->username, $values->password);
-			$this->redirect('Homepage:');
+			$this->redirect('Dashboard:');
 
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());

@@ -7,9 +7,9 @@ use Nette,
 
 
 /**
- * Homepage presenter.
+ * Dashboard presenter.
  */
-class HomepagePresenter extends BaseSecuredPresenter
+class DashboardPresenter extends BaseSecuredPresenter
 {
 	public function renderDefault()
 	{
