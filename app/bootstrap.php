@@ -15,7 +15,11 @@ $configurator->createRobotLoader()
 	->register();
 
 $configurator->addConfig(__DIR__ . '/config/config.neon');
-$configurator->addConfig(__DIR__ . '/config/config.local.neon');
+if ($configurator->isDebugMode()) {
+	$configurator->addConfig(__DIR__ . '/config/config.local.neon');
+} else {
+	$configurator->addConfig(__DIR__ . '/config/config.remote.neon');
+}
 
 $container = $configurator->createContainer();
 
