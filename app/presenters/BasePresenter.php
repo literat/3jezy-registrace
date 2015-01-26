@@ -16,6 +16,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	 */
 	protected $backlink;
 
+
 	/**
 	 * Startup
 	 */
@@ -23,6 +24,19 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		parent::startup();
 		$this->template->backlink = $this->getParameter("backlink");
+	}
+
+
+	/**
+	 * Before render
+	 * Prepare variables for template
+	 */
+	public function beforeRender()
+	{
+		parent::beforeRender();
+
+		$this->template->production = $this->context->parameters['environment'] === 'production' ? 1 : 0;
+		$this->template->version = $this->context->parameters['site']['version'];
 	}
 
 }

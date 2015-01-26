@@ -9,10 +9,14 @@
 	<meta charset="utf-8">
 
 	<title>{ifset #title}{include title|striptags} | {/ifset}Nette Sandbox</title>
-
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.min.css">
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
-	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+	{if $production}
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/combined.css?{$version}">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.min.css?{$version}">
+	{else}
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.css?{$version}">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css?{$version}">
+	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css?{$version}">
+	{/if}
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	{block head}{/block}
 	<script type="text/javascript">
@@ -30,9 +34,13 @@
 	{include content}
 
 	{block scripts}
-	<script src="{$basePath}/js/jquery.js"></script>
-	<script src="{$basePath}/js/netteForms.js"></script>
-	<script src="{$basePath}/js/main.js"></script>
+	{if $production}
+	<script src="{$basePath}/js/combined.js?{$version}"></script>
+	{else}
+	<script src="{$basePath}/js/jquery.js?{$version}"></script>
+	<script src="{$basePath}/js/netteForms.js?{$version}"></script>
+	<script src="{$basePath}/js/main.js?{$version}"></script>
+	{/if}
 	{/block}
 </body>
 </html>
