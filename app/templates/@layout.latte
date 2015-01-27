@@ -13,7 +13,9 @@
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/combined.css?{$version}">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.min.css?{$version}">
 	{else}
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.css?{$version}">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/metro-bootstrap.min.css?{$version}">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/metro-bootstrap-responsive.min.css?{$version}">
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/iconFont.min.css?{$version}">
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css?{$version}">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css?{$version}">
 	{/if}
@@ -26,8 +28,27 @@
 	</script>
 </head>
 
-<body>
+<body class="metro">
 	<script> document.documentElement.className+=' js' </script>
+
+	<nav class="navigation-bar dark">
+		<nav class="navigation-bar-content">
+			<div class="element">
+				<a class="dropdown-toggle" href="#">Products</a>
+					<ul class="dropdown-menu" data-role="dropdown">
+						<li><a href="#">Windows 8</a></li>
+						<li><a href="#">Skype</a></li>
+						<li><a href="#">Internet Explorer</a></li>
+						<li><a href="#">Office</a></li>
+					</ul>
+			</div>
+			<div class="element-divider"></div>
+			<div class="element">Download</div>
+			<div class="element">Download</div>
+			<div class="element">Support</div>
+			<div class="element">Buy Now</div>
+		</nav>
+	</nav>
 
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
@@ -38,6 +59,8 @@
 	<script src="{$basePath}/js/combined.js?{$version}"></script>
 	{else}
 	<script src="{$basePath}/js/jquery.js?{$version}"></script>
+	<script src="{$basePath}/js/jquery.widget.min.js?{$version}"></script>
+	<script src="{$basePath}/js/metro.min.js?{$version}"></script>
 	<script src="{$basePath}/js/netteForms.js?{$version}"></script>
 	<script src="{$basePath}/js/main.js?{$version}"></script>
 	{/if}
