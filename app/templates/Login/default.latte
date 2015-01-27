@@ -2,13 +2,18 @@
 <div class="grid">
 	<div class="row">
 		<div class="span8 text-center">
-			<h2>Přihlášení pro veřejnost</h2
-			{include '../components/signInForm.latte', form => signInForm}
+			<h2>Nemáte účet? Zaregistrujte se...</h2>
 			{include '../components/signUpForm.latte', form => signUpForm}
 		</div>
 		<div class="span8 text-center">
-			<h2>Přihlášení pro členy Junáka</h2>
-			{include '../components/signInSkautis.latte'}
+			<div class="system-login">
+				<h2>Přihlášení do systému</h2>
+				{include '../components/signInForm.latte', form => signInForm}
+			</div>
+			<div class="service-login">
+				<h2>Přihlášení se externí službou</h2>
+				{include '../components/signInSkautis.latte'}
+			</div>
 		</div>
 	</div>
 </div>
