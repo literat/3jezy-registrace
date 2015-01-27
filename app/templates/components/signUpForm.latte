@@ -1,10 +1,27 @@
-{form $form class => 'form-signup'}
+<h4>Zaregistrovat se</h4>
+{form $form}
 <ul class=error n:if="$form->ownErrors">
 	<li n:foreach="$form->ownErrors as $error">{$error}</li>
 </ul>
 
-<div n:foreach="$form->controls as $input" n:class="$input->required ? required">
-	{label $input /}
-	{input $input} <span class=error n:ifcontent>{$input->error}</span>
-</div>
+<fieldset>
+	<div class="span6 offset1">
+		<div n:foreach="$form->controls as $input" class="row {$input->required ? required}">
+			{if $input instanceof Nette\Forms\Controls\SubmitButton || $input instanceof Nette\Forms\Controls\HiddenField}
+			{input $input}
+			{else}
+			<div class="span1">
+				{label $input /}
+			</div>
+			<div class="span4">
+				<div class="input-control {$input->getControlPrototype()->type}" data-role="input-control">
+					{input $input}
+					<button class="btn-clear" tabindex="-1" type="button"></button>
+					<span class=error n:ifcontent>{$input->error}</span>
+				</div>
+			</div>
+			{/if}
+		</div>
+	</div>
+</fieldset>
 {/form}

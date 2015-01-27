@@ -1,33 +1,14 @@
 {block content}
-
-<div class="container col-md-6 text-center">
-
-	<h1 class="form-signin-heading" n:block=title>Sign in</h1>
-
-	{* {control signInForm} *}
-
-	{include '../components/signInForm.latte', form => signInForm}
-
-	<h1>Sign Up</h1>
-
-	{include '../components/signUpForm.latte', form => signUpForm}
-
-</div>
-<div class="container col-md-6 text-center">
-	<h1>SkautIS sign in</h1>
-
-	{if $user->isLoggedIn()}
-	<p>
-		{$user->getIdentity()->DisplayName} <a n:href=":Auth:SkautisLogout">Odhlásit se</a>
-		Role: <select onchange="changeRole(this.value)" class="roleSelect">
-		<option n:foreach="$myRoles as $r" value="{$r->ID}" {if $r->ID == $myRole}selected="selected"{/if}>{$r->DisplayName}</option>
-		</select>
-	</p>
-	{else}
-	<p>
-		<a n:href=":Auth:SkautisLogin (isset($backlink)) ? $backlink : NULL">Přihlásit se</a>
-	</p>
-	{/if}
-
-
+<div class="grid">
+	<div class="row">
+		<div class="span8 text-center">
+			<h2>Přihlášení pro veřejnost</h2
+			{include '../components/signInForm.latte', form => signInForm}
+			{include '../components/signUpForm.latte', form => signUpForm}
+		</div>
+		<div class="span8 text-center">
+			<h2>Přihlášení pro členy Junáka</h2>
+			{include '../components/signInSkautis.latte'}
+		</div>
+	</div>
 </div>

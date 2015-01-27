@@ -36,20 +36,21 @@ class LoginPresenter extends BasePresenter
 	protected function createComponentSignInForm()
 	{
 		$form = new Nette\Application\UI\Form;
-		$form->addText('username', 'E-mail:')
-			->setRequired('Please enter your e-mail.')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'E-mail');
+		$form->addText('email', 'E-mail:')
+			->setRequired('Prosím zadejte svůj e-mail.')
+			->setAttribute('placeholder', 'E-mail')
+			->addCondition($form::FILLED, 'E-mail musí být vyplněn!')
+			->addRule($form::EMAIL, 'Nevalidní e-mailová adresa!');
 
-		$form->addPassword('password', 'Password:')
-			->setRequired('Please enter your password.')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Password');
+		$form->addPassword('password', 'Heslo:')
+			->setRequired('Prosím zadejte své heslo.')
+			->setAttribute('placeholder', 'Heslo')
+			->addCondition($form::FILLED, 'Heslo musí být vyplněno!');
 
-		$form->addCheckbox('remember', 'Keep me signed in');
+		$form->addCheckbox('remember', 'Zapamatovat si mě!');
 
-		$form->addSubmit('signin', 'Sign in')
-			->setAttribute('class', 'btn btn-lg btn-primary btn-block');
+		$form->addSubmit('signin', 'Přihlásit')
+			->setAttribute('class', 'button large success');
 
 		// call method signInFormSucceeded() on success
 		$form->onSuccess[] = $this->signInFormSucceeded;
@@ -82,28 +83,29 @@ class LoginPresenter extends BasePresenter
 	protected function createComponentSignUpForm()
 	{
 		$form = new Nette\Application\UI\Form;
-		$form->addText('name', 'Name:')
-			->setRequired('Please enter your name.')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Name');
+		$form->addText('name', 'Jméno:')
+			->setRequired('Zadejte prosím své jméno.')
+			->setAttribute('placeholder', 'Jméno')
+			->addCondition($form::FILLED, 'Jméno musí být vyplněno!');
 
-		$form->addText('surname', 'Surname:')
-			->setRequired('Please enter your surname.')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Surname');
+		$form->addText('surname', 'Příjmení:')
+			->setRequired('Zadejte prosím své příjmení.')
+			->setAttribute('placeholder', 'Příjmení')
+			->addCondition($form::FILLED, 'Příjmení musí být vyplněno!');
 
 		$form->addText('email', 'E-mail:')
-			->setRequired('Please enter your e-mail.')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'E-mail');
+			->setRequired('Prosím zadejte svůj e-mail.')
+			->setAttribute('placeholder', 'E-mail')
+			->addCondition($form::FILLED, 'E-mail musí být vyplněn!')
+			->addRule($form::EMAIL, 'Nevalidní e-mailová adresa!');
 
-		$form->addPassword('password', 'Password:')
-			->setRequired('Please enter your surname.')
-			->setAttribute('class', 'form-control')
-			->setAttribute('placeholder', 'Password');
+		$form->addPassword('password', 'Heslo:')
+			->setRequired('Prosím zadejte své heslo.')
+			->setAttribute('placeholder', 'Heslo')
+			->addCondition($form::FILLED, 'Heslo musí být vyplněno!');
 
-		$form->addSubmit('signup', 'Sign up')
-			->setAttribute('class', 'btn btn-lg btn-success btn-block');
+		$form->addSubmit('signup', 'Zaregistrovat')
+			->setAttribute('class', 'button large danger');
 
 		// call method signInFormSucceeded() on success
 		$form->onSuccess[] = $this->signUpFormSucceeded;
@@ -113,11 +115,7 @@ class LoginPresenter extends BasePresenter
 
 	public function signUpFormSucceeded($form, $values)
 	{
-		if ($values->remember) {
-			$this->getUser()->setExpiration('14 days', FALSE);
-		} else {
-			$this->getUser()->setExpiration('20 minutes', TRUE);
-		}
+		$this->getUser()->setExpiration('20 minutes', TRUE);
 
 		try {
 			$this->getUser()->login($values->username, $values->password);
