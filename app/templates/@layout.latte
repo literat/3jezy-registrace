@@ -34,6 +34,13 @@
 	<nav class="navigation-bar dark">
 		<nav class="navigation-bar-content">
 			<div class="element">
+				<a href="{$basePath}" title="Dashboard">
+					<img src="{$basePath}/images/3jezy-logo.png" style="max-height:20px;" />
+				</a>
+			</div>
+			<div class="element-divider"></div>
+			{*
+			<div class="element">
 				<a class="dropdown-toggle" href="#">Products</a>
 					<ul class="dropdown-menu" data-role="dropdown">
 						<li><a href="#">Windows 8</a></li>
@@ -47,6 +54,37 @@
 			<div class="element">Download</div>
 			<div class="element">Support</div>
 			<div class="element">Buy Now</div>
+			*}
+			{if $user->isLoggedIn()}
+			<div class="element place-right">
+				<a class="dropdown-toggle" href="#">
+					<span class="icon-cog"></span>
+				</a>
+				<ul class="dropdown-menu place-right" data-role="dropdown">
+					<li><a n:href=":Auth:SkautisLogout"><span class="icon-unlocked"></span> Odhlásit</a></li>
+				</ul>
+			</div>
+			<div class="element-divider place-right"></div>
+			<div class="element place-right">
+				<a class="dropdown-toggle" href="#">Role</a>
+					<ul class="dropdown-menu drop-left" data-role="dropdown">
+						<li onclick="changeRole(this.value)" n:foreach="$myRoles as $r" data-value="{$r->ID}" {if $r->ID == $myRole}class="active"{/if}>{$r->DisplayName}</li>
+					</ul>
+			</div>
+			<div class="element-divider place-right"></div>
+			<button class="element image-button image-left place-right">
+				{$user->getIdentity()->DisplayName}
+				<img src="images/211858_100001930891748_287895609_q.jpg"/>
+			</button>
+			{else}
+			<div class="element">Registrace do závodu</div>
+			<div class="element-divider place-right"></div>
+			<a class="element place-right" n:href=":Login:">
+				<span class="icon-locked"></span>
+				 Přihlásit
+			</a>
+			{/if}
+
 		</nav>
 	</nav>
 
