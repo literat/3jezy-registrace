@@ -1,4 +1,5 @@
 <?php
+
 namespace SystemAuth;
 
 use Nette;
