@@ -31,9 +31,14 @@ class SystemAuthenticator extends Nette\Object implements Nette\Security\IAuthen
 	private $database;
 
 
-	public function __construct(Nette\Database\Connection $database)
+	/** @var string */
+	private $tablePrefix;
+
+
+	public function __construct(Nette\Database\Connection $database, Nette\DI\Container $container)
 	{
 		$this->database = new Context($database);
+		$this->tablePrefix = $container->parameters['database']['prefix'];
 	}
 
 
@@ -47,7 +52,7 @@ class SystemAuthenticator extends Nette\Object implements Nette\Security\IAuthen
 	{
 		list($email, $password) = $credentials;
 
-		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_EMAIL, $email)->fetch();
+		$row = $this->database->table($this->tablePrefix . self::TABLE_NAME)->where(self::COLUMN_EMAIL, $email)->fetch();
 
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('The email is incorrect.', self::IDENTITY_NOT_FOUND);

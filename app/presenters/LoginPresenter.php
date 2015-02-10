@@ -76,7 +76,7 @@ class LoginPresenter extends BasePresenter
 		}
 
 		try {
-			$this->user->setAuthenticator(new SystemAuth\SystemAuthenticator($this->context->database));
+			$this->user->setAuthenticator(new SystemAuth\SystemAuthenticator($this->context->database, $this->context));
 			$this->user->login($values->email, $values->password);
 			$this->redirect('Dashboard:');
 

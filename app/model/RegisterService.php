@@ -13,6 +13,7 @@ class RegisterService extends Nette\Object
 
 	const
 		TABLE_NAME = 'users',
+		COLUMN_ID = 'id',
 		COLUMN_EMAIL = 'email',
 		COLUMN_PASSWORD_HASH = 'password',
 		COLUMN_PASSWORD_SALT = 'salt',
@@ -25,9 +26,14 @@ class RegisterService extends Nette\Object
 	private $database;
 
 
-	public function __construct(Nette\Database\Connection $database)
+	/** @var string */
+	private $tablePrefix;
+
+
+	public function __construct(Nette\Database\Connection $database, $tablePrefix)
 	{
 		$this->database = new Context($database);
+		$this->tablePrefix = $tablePrefix;
 	}
 
 
@@ -40,7 +46,7 @@ class RegisterService extends Nette\Object
 	public function add($values)
 	{
 		$salt = $this->generateSalt(10);
-		$this->database->table(self::TABLE_NAME)->insert(array(
+		$this->database->table($this->tablePrefix . self::TABLE_NAME)->insert(array(
 			self::COLUMN_EMAIL => $values->{self::COLUMN_EMAIL},
 			self::COLUMN_PASSWORD_HASH => Passwords::hash($salt.$values->{self::COLUMN_PASSWORD_HASH}.$salt),
 			self::COLUMN_PASSWORD_SALT => $salt,
