@@ -53,4 +53,10 @@ html.js .jshidden {
 	display: none;
 }
 
-/*.public-login h2 {margin-top: 100px;}
+#menu-profile {
+	padding: 10px;
+}
+
+#menu-profile .dropdown-toggle span {
+	font-size: 2em !important;
+}
