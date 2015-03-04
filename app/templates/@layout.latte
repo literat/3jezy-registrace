@@ -34,13 +34,13 @@
 	<nav class="navigation-bar dark">
 		<nav class="navigation-bar-content">
 			<div class="element">
-				<a href="{$basePath}" title="Dashboard">
+				<a n:href="Dashboard:default" title="Dashboard">
 					<img src="{$basePath}/images/3jezy-logo.png" style="max-height:20px;" />
 				</a>
 			</div>
 			<div class="element-divider"></div>
 			{if $user->isLoggedIn()}
-			<a class="element" href="{$basePath}" title="Dashboard">Registrační panel</a>
+			<a class="element" n:href="Dashboard:default" title="Dashboard">Registrační panel</a>
 			<div id="menu-profile" class="element place-right bg-grayLight">
 				<a class="dropdown-toggle" href="#">
 					<span class="icon-user"></span>
