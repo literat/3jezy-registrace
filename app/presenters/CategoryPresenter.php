@@ -70,8 +70,8 @@ class CategoryPresenter extends BaseSecuredPresenter
 	{
 		$categoryId = $this->getParameter('id');
 
-		if ($id) {
-			$category = $this->database->table($this->tablePrefix . self::TABLE_NAME)->get($id);
+		if ($categoryId) {
+			$category = $this->database->table($this->tablePrefix . self::TABLE_NAME)->get($categoryId);
 			$category->update($values);
 		} else {
 			$category = $this->database->table($this->tablePrefix . self::TABLE_NAME)->insert($values);
