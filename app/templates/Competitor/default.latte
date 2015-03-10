@@ -1,0 +1,11 @@
+{block content}
+
+<a n:href="Competitor:create">Nový závodník</a>
+
+{foreach $competitors as $competitor}
+<div class="competitor">
+	<a n:href="edit $competitor->id"><h3>{$competitor->name} {$competitor->surname} - {$competitor->nickname}</h3></a>
+
+	<div>{$competitor->birthday}</div>
+</div>
+{/foreach}
