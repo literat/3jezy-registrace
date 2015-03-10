@@ -71,7 +71,7 @@ class UserPresenter extends BaseSecuredPresenter
 		$userId = $this->getParameter('id');
 
 		if ($userId) {
-			$user = $this->database->table($this->tablePrefix . self::TABLE_NAME)->get($id);
+			$user = $this->database->table($this->tablePrefix . self::TABLE_NAME)->get($userId);
 			$user->update($values);
 		} else {
 			$user = $this->database->table($this->tablePrefix . self::TABLE_NAME)->insert($values);

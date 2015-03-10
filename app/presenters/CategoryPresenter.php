@@ -39,9 +39,9 @@ class CategoryPresenter extends BaseSecuredPresenter
 	}
 
 
-	public function actionEdit($id)
+	public function actionEdit($categoryId)
 	{
-		$category = $this->database->table($this->tablePrefix . self::TABLE_NAME)->get($id);
+		$category = $this->database->table($this->tablePrefix . self::TABLE_NAME)->get($categoryId);
 		if (!$category) {
 			$this->error('Kategorie nebyla nalezena');
 		}
