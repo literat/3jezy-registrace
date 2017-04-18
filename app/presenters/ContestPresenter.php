@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Database\Context;
 use Nette\Application\UI\Form;
+use Nette\DI\Container;
 use	App\Model;
 
 
@@ -26,9 +27,9 @@ class ContestPresenter extends BaseSecuredPresenter
 	private $tablePrefix;
 
 
-	public function __construct(Nette\Database\Connection $database, Nette\DI\Container $container)
+	public function __construct(Context $database, Container $container)
 	{
-		$this->database = new Context($database);
+		$this->database = $database;
 		$this->tablePrefix = $container->parameters['database']['prefix'];
 	}
 

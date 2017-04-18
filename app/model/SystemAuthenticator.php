@@ -6,6 +6,7 @@ use Nette;
 use Nette\Security;
 use Nette\Database\Context;
 use Nette\Security\Passwords;
+use Nette\DI\Container;
 
 /**
  * Use for data from this system only!
@@ -35,9 +36,9 @@ class SystemAuthenticator extends Nette\Object implements Nette\Security\IAuthen
 	private $tablePrefix;
 
 
-	public function __construct(Nette\Database\Connection $database, Nette\DI\Container $container)
+	public function __construct(Context $database, Container $container)
 	{
-		$this->database = new Context($database);
+		$this->database = $database;
 		$this->tablePrefix = $container->parameters['database']['prefix'];
 	}
 

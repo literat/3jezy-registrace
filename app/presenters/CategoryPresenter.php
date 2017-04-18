@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Database\Context;
 use Nette\Application\UI\Form;
+use Nette\DI\Container;
 use	App\Model;
 
 
@@ -15,8 +16,7 @@ class CategoryPresenter extends BaseSecuredPresenter
 {
 
 
-	const
-		TABLE_NAME = 'categories';
+	const TABLE_NAME = 'categories';
 
 	/** @var Nette\Database\Context */
 	private $database;
@@ -26,9 +26,9 @@ class CategoryPresenter extends BaseSecuredPresenter
 	private $tablePrefix;
 
 
-	public function __construct(Nette\Database\Connection $database, Nette\DI\Container $container)
+	public function __construct(Context $database, Container $container)
 	{
-		$this->database = new Context($database);
+		$this->database = $database;
 		$this->tablePrefix = $container->parameters['database']['prefix'];
 	}
 

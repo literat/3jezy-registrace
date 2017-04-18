@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Database\Context;
 use Nette\Application\UI\Form;
+use Nette\DI\Container;
 use	App\Model;
 
 
@@ -15,8 +16,7 @@ class SystemPresenter extends BaseSecuredPresenter
 {
 
 
-	const
-		TABLE_NAME = 'system_settings';
+	const TABLE_NAME = 'system_settings';
 
 	/** @var Nette\Database\Context */
 	private $database;
@@ -26,9 +26,9 @@ class SystemPresenter extends BaseSecuredPresenter
 	private $tablePrefix;
 
 
-	public function __construct(Nette\Database\Connection $database, Nette\DI\Container $container)
+	public function __construct(Context $database, Container $container)
 	{
-		$this->database = new Context($database);
+		$this->database = $database;
 		$this->tablePrefix = $container->parameters['database']['prefix'];
 	}
 

@@ -17,6 +17,10 @@ class LoginPresenter extends BasePresenter
 {
 
 
+	public function handleChangeRole()
+	{
+	}
+
 	/**
 	 * Redirects user to Dashboard  when he/she is logged in
 	 *
@@ -76,7 +80,7 @@ class LoginPresenter extends BasePresenter
 		}
 
 		try {
-			$this->user->setAuthenticator(new SystemAuth\SystemAuthenticator($this->context->database, $this->context));
+			$this->user->setAuthenticator(new SystemAuth\SystemAuthenticator($this->context->getService('database.default.context'), $this->context));
 			$this->user->login($values->email, $values->password);
 			$this->redirect('Dashboard:');
 
@@ -116,7 +120,7 @@ class LoginPresenter extends BasePresenter
 			->setRequired('Prosím zadejte své heslo.')
 			->setAttribute('placeholder', 'Heslo')
 			->addRule(Form::FILLED, 'Heslo musí být vyplněno!')
-			->addRule(Form::MIN_LENGTH, 'HEslo musí mít alespoň %d znaků!', 6);
+			->addRule(Form::MIN_LENGTH, 'Heslo musí mít alespoň %d znaků!', 6);
 
 		$form->addSubmit('signup', 'Zaregistrovat')
 			->setAttribute('class', 'button large danger');

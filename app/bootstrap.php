@@ -1,11 +1,28 @@
 <?php
 
+if(!function_exists('dd')) {
+	/**
+	 * Dump the passed variables and end the script.
+	 *
+	 * @param  mixed
+	 * @return void
+	 */
+	function dd() {
+		array_map(function ($x){
+			(\Tracy\Debugger::dump($x));
+		}, func_get_args());
+
+		die(1);
+	}
+}
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $configurator = new Nette\Configurator;
 
 //$configurator->setDebugMode('23.75.345.200'); // enable for your remote IP
 $configurator->enableDebugger(__DIR__ . '/../log');
+error_reporting(~E_USER_DEPRECATED); // note ~ before E_USER_DEPRECATED
 
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 
@@ -22,5 +39,5 @@ if ($configurator->isDebugMode()) {
 }
 
 $container = $configurator->createContainer();
-
+//dd($container);
 return $container;

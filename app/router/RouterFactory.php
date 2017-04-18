@@ -21,12 +21,15 @@ class RouterFactory
 	{
 		$router = new RouteList();
 		$router[] = new Route('index.php', 'Dashboard:default', Route::ONE_WAY);
-		$router[] = new Route('sign/<action>[/back-<backlink>]', array(
-			"presenter" => "Auth",
-			"action" => "default",
-			"backlink" => NULL
-		));
-		$router[] = new Route('<presenter>/<action>[/<id>]', 'Dashboard:default');
+		$router[] = new Route('sign/<action>[/back-<backlink>]',
+			[
+				"presenter"	=> "Auth",
+				"action"	=> "default",
+				"backlink"	=> NULL
+			],
+			Route::SECURED
+		);
+		$router[] = new Route('<presenter>/<action>[/<id>]', 'Dashboard:default', Route::SECURED);
 		return $router;
 	}
 

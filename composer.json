@@ -15,14 +15,19 @@
 		}
 	],
 	"require": {
-		"php": ">= 5.3.7",
-		"nette/nette": "~2.2.0",
-		"dg/adminer-custom": "~1.0",
-		"skautis/skautis": "~1.2",
-		"dg/ftp-deployment": "~2.1"
+		"php": ">= 5.6.0",
+		"nette/nette": "<2.4",
+		"dg/adminer-custom": "~1",
+		"skautis/skautis": "2.*",
+		"skautis/nette": "2.*",
+		"dg/ftp-deployment": "~2"
 	},
 	"require-dev": {
-		"nette/tester": "~1.0"
+		"nette/tester": "~1"
 	},
+	"scripts": {
+        "deploy": "vendor/bin/deployment deployment.ini",
+        "deploy-test": "vendor/bin/deployment deployment.ini --test"
+    },
 	"minimum-stability": "stable"
 }

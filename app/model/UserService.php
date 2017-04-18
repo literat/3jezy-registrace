@@ -14,7 +14,7 @@ class UserService extends BaseService
 	 */
 	public function getRoleId()
 	{
-		return $this->skautis->getRoleId();
+		return $this->skautis->getUser()->getRoleId();
 	}
 
 
@@ -85,7 +85,7 @@ class UserService extends BaseService
 	 */
 	public function isLoggedIn()
 	{
-		return $this->skautis->isLoggedIn();
+		return $this->skautis->getUser()->isLoggedIn();
 	}
 
 
@@ -97,7 +97,7 @@ class UserService extends BaseService
 	 */
 	public function resetLoginData()
 	{
-		$this->skautis->resetLoginData();
+		$this->skautis->getUser()->resetLoginData();
 	}
 
 

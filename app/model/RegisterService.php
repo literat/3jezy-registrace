@@ -27,13 +27,13 @@ class RegisterService extends Nette\Object
 
 
 	/** @var string */
-	private $tablePrefix;
+	private $tablePrefix = 'r3j__';
 
 
-	public function __construct(Nette\Database\Connection $database, $tablePrefix)
+	public function __construct(Context $database)
 	{
-		$this->database = new Context($database);
-		$this->tablePrefix = $tablePrefix;
+		$this->database = $database;
+		//	$this->tablePrefix = $tablePrefix;
 	}
 
 
