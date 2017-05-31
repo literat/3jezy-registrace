@@ -26,7 +26,7 @@
 				{label $input /}
 			</div>
 			<div class="span4">
-				<div class="input-control {$input->getControlPrototype()->type}" data-role="input-control">
+				<div class="input-control {$input->getControlPrototype()->type ?: 'text'}" data-role="input-control">
 					{input $input}
 					<button class="btn-clear" tabindex="-1" type="button"></button>
 					<span class=error n:ifcontent>{$input->error}</span>

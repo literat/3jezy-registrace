@@ -35,7 +35,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	{
 		parent::beforeRender();
 
-		$this->template->production = $this->context->parameters['environment'] === 'production' ? 1 : 0;
+		$this->template->production = $this->context->parameters['productionMode']/* === 'production' ? 1 : 0*/;
 		$this->template->version = $this->context->parameters['site']['version'];
 	}
 

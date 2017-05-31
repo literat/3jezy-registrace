@@ -16,7 +16,7 @@
 	],
 	"require": {
 		"php": ">= 5.6.0",
-		"nette/nette": "<2.4",
+		"nette/nette": "~2.4",
 		"dg/adminer-custom": "~1",
 		"skautis/skautis": "2.*",
 		"skautis/nette": "2.*",
