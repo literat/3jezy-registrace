@@ -1,9 +1,0 @@
-{block content}
-
-<a n:href="Contest:create">Nový závod</a>
-
-{foreach $contests as $contest}
-<div class="contest">
-	<a n:href="edit $contest->id"><h3>{$contest->name} {$contest->start_date} - {$contest->end_date}</h3></a>
-</div>
-{/foreach}

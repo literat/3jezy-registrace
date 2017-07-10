@@ -1,9 +1,0 @@
-{block content}
-
-<a n:href="System:create">Nové nastavení</a>
-
-{foreach $settings as $setting}
-<div class="setting">
-	<a n:href="edit $setting->id"><h3>{$setting->name} - {$setting->value}</h3></a>
-</div>
-{/foreach}

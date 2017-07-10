@@ -1,9 +1,0 @@
-{block content}
-
-<a n:href="User:create">Nový uživatel</a>
-
-{foreach $users as $user}
-<div class="user">
-	<a n:href="edit $user->id"><h3>{$user->surname} {$user->name} &lt;{$user->email}&gt;</h3></a>
-</div>
-{/foreach}
