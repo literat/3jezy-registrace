@@ -11,4 +11,5 @@ npm-debug.log
 .env
 *.sublime*
 .phpintel
-.log
+*.log
+*.sql
