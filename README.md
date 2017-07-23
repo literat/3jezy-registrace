@@ -1,18 +1,28 @@
 # 3 jezy | Registration App
 
-## Environments
+## Development
 
-### Local development
+* commit messages should follow [rules](docs/commit-messages.md) for easier release process
 
-`php artisan serve` - Run local php development server
+Require installed composer - [get composer](https://getcomposer.org/download/)
 
-`composer serve` - Run local php development server
+**Composer scripts**
 
-#### Domain
+* `php artisan serve` - Run local php development server
+* `composer serve` - Run local php development server
+* `composer deploy-test` - Run deployment test
+* `composer deploy` - Run deployment
+* `composer test` - Run tests
+
+### Environments
+
+#### Local
+
+##### Domain
 
 `https://registrace.3jezy.dev`
 
-#### Testing accounts for SkautIS
+##### Testing accounts for SkautIS
 
 uživatelské jméno    | heslo           | oprávnění
 -------------------- | --------------- | -----------------------------------------------------------------------------
@@ -22,6 +32,12 @@ okres.blansko        | blansko.Web1    | Vedoucí/administrátor okresu: testova
 stredisko.koprivnice | koprivnice.Web5 | Vedoucí/administrátor střediska: testovací "středisko Kopřivnice" v KV kraji
 snem.sneznik.kk      | komise1         | Člen kandidátní komise střediskového sněmu
 snem.sneznik.uc      | ucastnik1       | Účastník střediskového sněmu
+
+#### Production
+
+##### Domain
+
+`https://registrace.3jezy.cz`
 
 ## Backgrounds
 
