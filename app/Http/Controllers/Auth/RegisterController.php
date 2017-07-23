@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Traits\CaptchaTrait;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Traits\ActivationTrait;
+use App\Models\User;
+use App\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -20,14 +23,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, ActivationTrait, CaptchaTrait;
 
     /**
-     * Where to redirect users after registration.
+     * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/user';
 
     /**
      * Create a new controller instance.
@@ -36,7 +39,9 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('guest');
+
     }
 
     /**
@@ -47,11 +52,34 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+
+        $data['captcha'] = $this->captchaCheck();
+
+        $validator = Validator::make($data,
+            [
+                'first_name'            => 'required',
+                'last_name'             => 'required',
+                'email'                 => 'required|email|unique:users',
+                'password'              => 'required|min:6|max:20',
+                'password_confirmation' => 'required|same:password',
+                'g-recaptcha-response'  => 'required',
+                'captcha'               => 'required|min:1'
+            ],
+            [
+                'first_name.required'   => 'First Name is required',
+                'last_name.required'    => 'Last Name is required',
+                'email.required'        => 'Email is required',
+                'email.email'           => 'Email is invalid',
+                'password.required'     => 'Password is required',
+                'password.min'          => 'Password needs to have at least 6 characters',
+                'password.max'          => 'Password maximum length is 20 characters',
+                'g-recaptcha-response.required' => 'Captcha is required',
+                'captcha.min'           => 'Wrong captcha, please try again.'
+            ]
+        );
+
+        return $validator;
+
     }
 
     /**
@@ -62,10 +90,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+
+        $user =  User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'token' => str_random(64),
+            'activated' => !config('settings.activation')
         ]);
+
+        $role = Role::whereName('user')->first();
+        $user->assignRole($role);
+
+        $this->initiateEmailActivation($user);
+
+        return $user;
+
     }
+
 }

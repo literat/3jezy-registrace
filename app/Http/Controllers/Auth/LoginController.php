@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -21,19 +23,63 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * Auth guard
+     *
+     * @var
+     */
+    protected $auth;
+
+    /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '';
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * LoginController constructor.
+     * @param Guard $auth
      */
-    public function __construct()
+    public function __construct(Guard $auth)
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => 'logout']);
+        $this->auth = $auth;
     }
+
+    public function login(Request $request)
+    {
+        $email      = $request->get('email');
+        $password   = $request->get('password');
+        $remember   = $request->get('remember');
+
+        if ($this->auth->attempt([
+            'email'     => $email,
+            'password'  => $password
+        ], $remember == 1 ? true : false)) {
+
+            if ( $this->auth->user()->hasRole('user')) {
+
+                return redirect()->route('user.home');
+
+            }
+
+            if ( $this->auth->user()->hasRole('administrator')) {
+
+                return redirect()->route('admin.home');
+
+            }
+
+        }
+        else {
+
+            return redirect()->back()
+                ->with('message','Incorrect email or password')
+                ->with('status', 'danger')
+                ->withInput();
+        }
+
+    }
+
 }
