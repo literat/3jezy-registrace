@@ -7,18 +7,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
+/*
+ |--------------------------------------------------------------------------
+ | Login Controller
+ |--------------------------------------------------------------------------
+ |
+ | This controller handles authenticating users for the application and
+ | redirecting them to your home screen. The controller uses a trait
+ | to conveniently provide its functionality to your applications.
+ |
+ */
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
@@ -48,6 +48,10 @@ class LoginController extends Controller
         $this->auth = $auth;
     }
 
+    /**
+     * @param  Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
         $email      = $request->get('email');
@@ -55,30 +59,25 @@ class LoginController extends Controller
         $remember   = $request->get('remember');
 
         if ($this->auth->attempt([
-            'email'     => $email,
-            'password'  => $password
-        ], $remember == 1 ? true : false)) {
-
+                'email'     => $email,
+                'password'  => $password
+            ], $remember == 1 ? true : false)
+        ) {
             if ( $this->auth->user()->hasRole('user')) {
-
-                return redirect()->route('user.home');
-
+                $redirect = redirect()->route('dashboard.home');
             }
 
             if ( $this->auth->user()->hasRole('administrator')) {
-
-                return redirect()->route('admin.home');
-
+                $redirect = redirect()->route('admin.home');
             }
-
-        }
-        else {
-
-            return redirect()->back()
+        } else {
+            $redirect = redirect()->back()
                 ->with('message','Incorrect email or password')
                 ->with('status', 'danger')
                 ->withInput();
         }
+
+        return $redirect;
 
     }
 

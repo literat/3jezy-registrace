@@ -5,12 +5,14 @@ use Illuminate\Contracts\Auth\Guard;
 
 class Authenticate
 {
+
     /**
      * The Guard implementation.
      *
      * @var Guard
      */
     protected $auth;
+
     /**
      * Create a new filter instance.
      *
@@ -21,6 +23,7 @@ class Authenticate
     {
         $this->auth = $auth;
     }
+
     /**
      * Handle an incoming request.
      *
@@ -35,25 +38,27 @@ class Authenticate
         {
             return redirect()->to('/login')
                 ->with('status', 'success')
-                ->with('message', 'Please login.');
+                ->with('message', __('auth.please_login'));
         }
 
         if (config('settings.activation')) {
             if ($this->auth->user()->activated == false) {
-                session()->put('above-navbar-message', 'Please activate your email. <a href="'. route('authenticated.activation-resend') .'">Resend</a> activation email.');
+                session()->put(
+                    'above-navbar-message',
+                    __('auth.mail_activate') . ' <a href="'. route('authenticated.activation-resend') .'">' . __('auth.mail_resend'));
             } else {
                 session()->forget('above-navbar-message');
             }
         }
 
-        if($role == 'all')
-        {
+        if($role == 'all') {
             return $next($request);
         }
-        if( $this->auth->guest() || !$this->auth->user()->hasRole($role))
-        {
+
+        if( $this->auth->guest() || !$this->auth->user()->hasRole($role)) {
             abort(403);
         }
+
         return $next($request);
     }
 }

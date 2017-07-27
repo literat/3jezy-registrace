@@ -11,9 +11,6 @@
 |
 */
 
-$s = 'public.';
-Route::get('/',         ['as' => $s . 'home',   'uses' => 'PagesController@getHome']);
-
 $s = 'social.';
 Route::get('/social/redirect/{provider}',   ['as' => $s . 'redirect',   'uses' => 'Auth\SocialController@getSocialRedirect']);
 Route::get('/social/handle/{provider}',     ['as' => $s . 'handle',     'uses' => 'Auth\SocialController@getSocialHandle']);
@@ -40,6 +37,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:user'], function()
 
 Route::group(['middleware' => 'auth:all'], function()
 {
+    $s = 'dashboard.';
+    Route::get('/', ['as' => $s . 'home', 'uses' => 'PagesController@getHome']);
     $a = 'authenticated.';
     Route::get('/logout', ['as' => $a . 'logout', 'uses' => 'Auth\LoginController@logout']);
     Route::get('/activate/{token}', ['as' => $a . 'activate', 'uses' => 'ActivateController@activate']);

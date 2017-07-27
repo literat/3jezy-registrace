@@ -9,9 +9,19 @@
 
 @section('content')
 
+        <article class="col-sm-6 hidden-xs">
+            <h2>
+                Registrace do závodu Napříč Prahou - přes 3 jezy
+            </h2>
+        </article>
+
+        <article class="col-sm-6 col-xs-12">
+
+        <div>
+            <a href="{{ url('register') }}">@lang('auth.register')!</a>
+        </div>
 
         {!! Form::open(['url' => url('login'), 'class' => 'form-signin', 'data-parsley-validate' ] ) !!}
-
 
         @include('includes.status')
 
@@ -58,6 +68,8 @@
         @include('partials.socials')
 
         {!! Form::close() !!}
+
+        </article>
 
 @stop
 
