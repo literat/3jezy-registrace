@@ -63,17 +63,17 @@
                 <ul class="nav navbar-nav nav-flex-icons">
                     @if(!Auth::check())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('login') }}"><i class="fa fa-sign-in"></i> Login</a>
+                        <a class="nav-link" href="{{ url('login') }}"><i class="fa fa-sign-in"></i> @lang('auth.login')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('register') }}"><i class="fa fa-registered"></i> Register</a>
+                        <a class="nav-link" href="{{ url('register') }}"><i class="fa fa-registered"></i> @lang('auth.register')</a>
                     </li>
                     @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ Auth::user()->homeUrl() }}"><i class="fa fa-user"></i> {{ Auth::user()->first_name }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
+                        <a class="nav-link" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i> @lang('auth.logout')</a>
                     </li>
                     @endif
                 </ul>

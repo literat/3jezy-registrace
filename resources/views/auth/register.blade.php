@@ -7,11 +7,7 @@
 
 @section('content')
 
-        <article class="col-sm-6 hidden-xs">
-            <h2>
-                Registrace do závodu Napříč Prahou - přes 3 jezy
-            </h2>
-        </article>
+        @include('partials.beside-login')
 
         <article class="col-sm-6 col-xs-12">
 
@@ -23,39 +19,39 @@
 
         @include('includes.errors')
 
-        <h2 class="form-signin-heading">Please register</h2>
+        <h2 class="form-signin-heading">@lang('auth.please_register')</h2>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
+        <label for="inputEmail" class="sr-only">@lang('auth.email_address')</label>
         {!! Form::email('email', null, [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Email address',
+            'placeholder'                   => __('auth.email_address'),
             'required',
             'id'                            => 'inputEmail',
-            'data-parsley-required-message' => 'Email is required',
+            'data-parsley-required-message' => __('auth.email_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-type'             => 'email'
         ]) !!}
 
-        <label for="inputFirstName" class="sr-only">First name</label>
+        <label for="inputFirstName" class="sr-only">@lang('auth.first_name')</label>
         {!! Form::text('first_name', null, [
             'class'                         => 'form-control',
-            'placeholder'                   => 'First name',
+            'placeholder'                   => __('auth.first_name'),
             'required',
             'id'                            => 'inputFirstName',
-            'data-parsley-required-message' => 'First Name is required',
+            'data-parsley-required-message' => __('auth.first_name_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-pattern'          => '/^[a-zA-Z\u00C0-\u017F]*$/',
             'data-parsley-minlength'        => '2',
             'data-parsley-maxlength'        => '32'
         ]) !!}
 
-        <label for="inputLastName" class="sr-only">Last name</label>
+        <label for="inputLastName" class="sr-only">@lang('auth.last_name')</label>
         {!! Form::text('last_name', null, [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Last name',
+            'placeholder'                   => __('auth.last_name'),
             'required',
             'id'                            => 'inputLastName',
-            'data-parsley-required-message' => 'Last Name is required',
+            'data-parsley-required-message' => __('auth.last_name_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-pattern'          => '/^[a-zA-Z\u00C0-\u017F]*$/',
             'data-parsley-minlength'        => '2',
@@ -63,13 +59,13 @@
         ]) !!}
 
 
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword" class="sr-only">@lang('auth.password')</label>
         {!! Form::password('password', [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Password',
+            'placeholder'                   => __('auth.password'),
             'required',
             'id'                            => 'inputPassword',
-            'data-parsley-required-message' => 'Password is required',
+            'data-parsley-required-message' => __('auth.password_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-minlength'        => '6',
             'data-parsley-maxlength'        => '20'
@@ -79,22 +75,22 @@
         <label for="inputPasswordConfirm" class="sr-only has-warning">Confirm Password</label>
         {!! Form::password('password_confirmation', [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Password confirmation',
+            'placeholder'                   => __('auth.password_confirmation'),
             'required',
             'id'                            => 'inputPasswordConfirm',
-            'data-parsley-required-message' => 'Password confirmation is required',
+            'data-parsley-required-message' => __('auth.password_confirmation_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-equalto'          => '#inputPassword',
-            'data-parsley-equalto-message'  => 'Not same as Password',
+            'data-parsley-equalto-message'  => __('auth.not_same_password'),
         ]) !!}
 
         <div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}"></div>
 
-        <button class="btn btn-lg btn-primary btn-block register-btn" type="submit">Register</button>
+        <button class="btn btn-lg btn-primary btn-block register-btn" type="submit">@lang('auth.register')</button>
 
-        <p class="or-social">Or Use Social Login</p>
+        <p class="or-social">@lang('auth.or')</p>
 
-        @include('partials.socials')
+        @include('partials.socials', ['sign_type' => 'register'])
 
         {!! Form::close() !!}
 

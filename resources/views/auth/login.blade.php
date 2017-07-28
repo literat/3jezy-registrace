@@ -9,11 +9,7 @@
 
 @section('content')
 
-        <article class="col-sm-6 hidden-xs">
-            <h2>
-                Registrace do závodu Napříč Prahou - přes 3 jezy
-            </h2>
-        </article>
+        @include('partials.beside-login')
 
         <article class="col-sm-6 col-xs-12">
 
@@ -25,26 +21,26 @@
 
         @include('includes.status')
 
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">@lang('auth.please_sign_in')</h2>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
+        <label for="inputEmail" class="sr-only">@lang('auth.email_adderess')</label>
         {!! Form::email('email', null, [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Email address',
+            'placeholder'                   => __('auth.email_address'),
             'required',
             'id'                            => 'inputEmail',
-            'data-parsley-required-message' => 'Email is required',
+            'data-parsley-required-message' => __('auth.email_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-type'             => 'email'
         ]) !!}
 
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword" class="sr-only">@lang('auth.password')</label>
         {!! Form::password('password', [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Password',
+            'placeholder'                   => __('auth.password'),
             'required',
             'id'                            => 'inputPassword',
-            'data-parsley-required-message' => 'Password is required',
+            'data-parsley-required-message' => __('auth.password_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-minlength'        => '6',
             'data-parsley-maxlength'        => '20'
@@ -55,17 +51,17 @@
             <div class="col-md-12">
                 <fieldset class="form-group">
                     {!! Form::checkbox('remember', 1, null, ['id' => 'remember-me']) !!}
-                    <label for="remember-me">Remember me</label>
+                    <label for="remember-me">@lang('auth.remember_me')</label>
                 </fieldset>
             </div>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block login-btn" type="submit">Sign in</button>
-        <p><a href="{{ url('password/reset') }}">Forgot password?</a></p>
+        <button class="btn btn-lg btn-primary btn-block login-btn" type="submit">@lang('auth.sign_in')</button>
+        <p><a href="{{ url('password/reset') }}">@lang('auth.forgot_password')</a></p>
 
-        <p class="or-social">Or Use Social Login</p>
+        <p class="or-social">@lang('auth.or')</p>
 
-        @include('partials.socials')
+        @include('partials.socials', ['sign_type' => 'login'])
 
         {!! Form::close() !!}
 
