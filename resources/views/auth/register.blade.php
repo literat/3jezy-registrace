@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.sign')
 
 @section('head')
     {!! Html::style('/css/register.css') !!}
@@ -9,11 +9,15 @@
 
         @include('partials.beside-login')
 
-        <article class="col-sm-6 col-xs-12">
+        <article class="col-sm-5 col-xs-12">
 
-        <div>
-            <a href="{{ url('login') }}">@lang('auth.login')!</a>
+        <div class="contianer-fluid">
+
+        <div class="row">
+            <a class="btn btn-info sign-switcher" href="{{ url('login') }}">@lang('auth.login')!</a>
         </div>
+
+        <div class="row">
 
         {!! Form::open(['url' => url('register'), 'class' => 'form-signin', 'data-parsley-validate' ] ) !!}
 
@@ -94,8 +98,11 @@
 
         {!! Form::close() !!}
 
-        </article>
+        </div>
 
+        </div>
+
+        </article>
 
 @stop
 

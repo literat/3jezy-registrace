@@ -35,68 +35,13 @@
 
 <body>
 
-<!--Navigation-->
-<header>
-
-@include('partials.above-navbar-alert')
-
-<!--Navbar-->
-    <nav class="navbar navbar-dark scrolling-navbar mdb-gradient">
-
-        <!-- Collapse button-->
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx">
-            <i class="fa fa-bars"></i></button>
-
-        <div class="container">
-
-            <!--Collapse content-->
-            <div class="collapse navbar-toggleable-xs" id="collapseEx">
-
-                <!--Links-->
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard.home')  }}"><i class="fa fa-home"></i> Home</a>
-                    </li>
-                </ul>
-
-                <!--Navbar icons-->
-                <ul class="nav navbar-nav nav-flex-icons">
-                    @if(!Auth::check())
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('login') }}"><i class="fa fa-sign-in"></i> @lang('auth.login')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('register') }}"><i class="fa fa-registered"></i> @lang('auth.register')</a>
-                    </li>
-                    @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ Auth::user()->homeUrl() }}"><i class="fa fa-user"></i> {{ Auth::user()->first_name }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i> @lang('auth.logout')</a>
-                    </li>
-                    @endif
-                </ul>
-
-            </div>
-            <!--/.Collapse content-->
-
-        </div>
-
-    </nav>
-    <!--/.Navbar-->
-
-
-</header>
-<!--/Navigation-->
-
-<main>
-<div class="container">
+<main class="rtm-main-dual">
+<section class="row">
 
     {{-- <div style="height: 90px;"></div> --}}
     @yield('content')
 
-</div> <!-- /container -->
+</section> <!-- /row -->
 </main>
 
 <!-- Bootstrap core JavaScript
