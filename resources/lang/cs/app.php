@@ -16,6 +16,10 @@ return [
     'title'          => 'Registrace na 3 jezy',
     'description'    => 'Aplikace pro registrování do závodu Napříč Prahou - přes 3 jezy.',
     'og_title'       => 'Registrace na 3 jezy',
-    'og_description' => 'Aplikace pro registrování do závodu Napříč Prahou - přes 3 jezy.'
+    'og_description' => 'Aplikace pro registrování do závodu Napříč Prahou - přes 3 jezy.',
+
+    'no_such_provider' => 'Použitý poskytovatel neexistuje.',
+    'did_not_share_social_data' => 'You did not share your profile data with our social app.',
+    'user_no_role_assigned' => 'Uživatel nemá přiřazenou roli, role je povinná! V databázi nejsou zadané role.',
 
 ];

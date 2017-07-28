@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-class AdminController extends Controller {
+class AdminController extends Controller
+{
 
+    /**
+     * @return string
+     */
     public function getHome()
     {
         return view('panels.admin.home');
     }
+
 }

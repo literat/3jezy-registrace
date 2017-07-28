@@ -10,6 +10,10 @@ class ActivateController extends Controller
 
     use ActivationTrait;
 
+    /**
+     * @param  string $token
+     * @return string
+     */
     public function activate($token)
     {
         if (auth()->user()->activated) {
@@ -41,9 +45,11 @@ class ActivateController extends Controller
         return redirect()->route('public.home')
             ->with('status', 'success')
             ->with('message', 'You successfully activated your email!');
-
     }
 
+    /**
+     * @return string
+     */
     public function resend()
     {
         if (auth()->user()->activated == false) {
@@ -58,4 +64,5 @@ class ActivateController extends Controller
             ->with('status', 'success')
             ->with('message', 'Already activated.');
     }
+
 }

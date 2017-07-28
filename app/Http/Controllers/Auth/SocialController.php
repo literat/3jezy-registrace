@@ -13,31 +13,32 @@ use App\Models\Role;
 class SocialController extends Controller
 {
 
-    public function getSocialRedirect( $provider )
+    /**
+     * @param  string $provider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function getSocialRedirect($provider)
     {
-
         $providerKey = Config::get('services.' . $provider);
 
         if (empty($providerKey)) {
-
             return view('pages.status')
-                ->with('error','No such provider');
-
+                ->with('error', __('app.no_such_provider'));
         }
 
         return Socialite::driver( $provider )->redirect();
-
     }
 
-    public function getSocialHandle( $provider )
+    /**
+     * @param  string $provider
+     * @return \Laravel\Socialite\Two\User
+     */
+    public function getSocialHandle($provider)
     {
-
         if (Input::get('denied') != '') {
-
             return redirect()->to('/login')
                 ->with('status', 'danger')
-                ->with('message', 'You did not share your profile data with our social app.');
-
+                ->with('message', __('app.did_not_share_social_data'));
         }
 
         $user = Socialite::driver( $provider )->user();
@@ -54,18 +55,13 @@ class SocialController extends Controller
         }
 
         if (!empty($userCheck)) {
-
             $socialUser = $userCheck;
-
-        }
-        else {
-
+        } else {
             $sameSocialId = Social::where('social_id', '=', $user->id)
                 ->where('provider', '=', $provider )
                 ->first();
 
             if (empty($sameSocialId)) {
-
                 //There is no combination of this social id and provider, so create new one
                 $newSocialUser = new User;
                 $newSocialUser->email              = $email;
@@ -93,32 +89,23 @@ class SocialController extends Controller
                 $newSocialUser->assignRole($role);
 
                 $socialUser = $newSocialUser;
-
-            }
-            else {
-
+            } else {
                 //Load this existing social user
                 $socialUser = $sameSocialId->user;
-
             }
-
         }
 
         auth()->login($socialUser, true);
 
         if ( auth()->user()->hasRole('user')) {
-
             return redirect()->route('user.home');
-
         }
 
         if ( auth()->user()->hasRole('administrator')) {
-
             return redirect()->route('admin.home');
-
         }
 
-        return abort(500, 'User has no Role assigned, role is obligatory! You did not seed the database with the roles.');
+        return abort(500, __('app.user_no_role_assigned'));
 
     }
 }
