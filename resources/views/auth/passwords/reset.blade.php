@@ -19,21 +19,21 @@
         <label for="inputEmail" class="sr-only">Email address</label>
         {!! Form::email('email', null, [
             'class'                         => 'form-control',
-            'placeholder'                   => 'Email address',
+            'placeholder'                   => __('auth.email_address'),
             'required',
             'id'                            => 'inputEmail',
-            'data-parsley-required-message' => 'Email is required',
+            'data-parsley-required-message' => __('auth.email_is_required'),
             'data-parsley-trigger'          => 'change focusout',
             'data-parsley-type'             => 'email',
             'autofocus'
         ]) !!}
 
         <label for="inputPassword" class="sr-only">Password</label>
-        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required',  'id' => 'inputPassword' ]) !!}
+        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => __('auth.password'), 'required',  'id' => 'inputPassword' ]) !!}
 
 
         <label for="inputPasswordConfirmation" class="sr-only">Password Confirmation</label>
-        {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Password confirmation', 'required',  'id' => 'inputPasswordConfirmation' ]) !!}
+        {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => __('auth.password_confirmation'), 'required',  'id' => 'inputPasswordConfirmation' ]) !!}
 
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Change</button>

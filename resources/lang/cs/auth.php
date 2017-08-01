@@ -44,5 +44,6 @@ return [
     'password_confirmation_is_required' => 'Nezadali jste potvrzení hesla',
     'not_same_password'                 => 'Hesla se neshodují',
     'logout'                            => 'Odhlásit se',
+    'password'                          => 'Heslo',
 
 ];
