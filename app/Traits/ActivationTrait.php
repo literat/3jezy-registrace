@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Log;
 use App\Logic\Activation\ActivationRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,7 @@ trait ActivationTrait
 
     public function initiateEmailActivation(User $user)
     {
-
+        Log::info('Initializing email activation');
         if ( !config('settings.activation')  || !$this->validateEmail($user)) {
 
             return true;

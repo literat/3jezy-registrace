@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Log;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use App\Traits\ActivationTrait;
 use App\Models\Activation;
 
@@ -56,25 +58,30 @@ class ActivateController extends Controller
      */
     public function resend()
     {
-        Log::info('ActivateController: try to resent activation email');
+        try {
+            Log::info('ActivateController: try to resent activation email');
 
-        if (auth()->user()->activated == false) {
-            $this->initiateEmailActivation(auth()->user());
+            if (auth()->user()->activated == false) {
+                $this->initiateEmailActivation(auth()->user());
 
-            $redirect = redirect()->route('dashboard.home')
+                $redirect = redirect()->route('dashboard.home')
+                    ->with('status', 'success')
+                    ->with('message', __('auth.activation_sent'));
+
+                Log::info('ActivateController: activation email sent');
+            } else {
+                $redirect = redirect()->route('dashboard.home')
                 ->with('status', 'success')
-                ->with('message', __('auth.activation_sent'));
+                ->with('message', __('auth.already_activated'));
 
-            Log::info('ActivateController: activation email sent');
-        } else {
-            $redirect = redirect()->route('dashboard.home')
-            ->with('status', 'success')
-            ->with('message', __('auth.already_activated'));
+                Log::info('ActivateController: user already activated');
+            }
 
-            Log::info('ActivateController: user already activated');
+            return $redirect;
+        } catch(\Exception $e) {
+            Log::error($e->getMessage());
+            abort(500, $e->getMessage());
         }
-
-        return $redirect;
     }
 
 }
