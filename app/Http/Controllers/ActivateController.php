@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Traits\ActivationTrait;
 use App\Models\Activation;
 
@@ -16,35 +17,38 @@ class ActivateController extends Controller
      */
     public function activate($token)
     {
+        Log::info('ActivateController: try to activate user by token: ' . $token);
+
         if (auth()->user()->activated) {
-
-            return redirect()->route('public.home')
+            $redirect = redirect()->route('dashboard.home')
                 ->with('status', 'success')
-                ->with('message', 'Your email is already activated.');
+                ->with('message', __('auth.email_already_activated'));
+        } else {
+            $activation = Activation::where('token', $token)
+                ->where('user_id', auth()->user()->id)
+                ->first();
+
+            if (empty($activation)) {
+                $redirect = redirect()->route('dashboard.home')
+                    ->with('status', 'wrong')
+                    ->with('message', __('auth.no_such_token_in_db'));
+            } else {
+                auth()->user()->activated = true;
+                auth()->user()->save();
+
+                $activation->delete();
+
+                session()->forget('above-navbar-message');
+
+                $redirect = redirect()->route('dashboard.home')
+                    ->with('status', 'success')
+                    ->with('message', __('auth.successfully_activated'));
+            }
         }
 
-        $activation = Activation::where('token', $token)
-            ->where('user_id', auth()->user()->id)
-            ->first();
+        Log::info('ActivateController: user by token activated');
 
-        if (empty($activation)) {
-
-            return redirect()->route('public.home')
-                ->with('status', 'wrong')
-                ->with('message', 'No such token in the database!');
-
-        }
-
-        auth()->user()->activated = true;
-        auth()->user()->save();
-
-        $activation->delete();
-
-        session()->forget('above-navbar-message');
-
-        return redirect()->route('public.home')
-            ->with('status', 'success')
-            ->with('message', 'You successfully activated your email!');
+        return $redirect;
     }
 
     /**
@@ -52,17 +56,25 @@ class ActivateController extends Controller
      */
     public function resend()
     {
+        Log::info('ActivateController: try to resent activation email');
+
         if (auth()->user()->activated == false) {
             $this->initiateEmailActivation(auth()->user());
 
-            return redirect()->route('public.home')
+            $redirect = redirect()->route('dashboard.home')
                 ->with('status', 'success')
-                ->with('message', 'Activation email sent.');
+                ->with('message', __('auth.activation_sent'));
+
+            Log::info('ActivateController: activation email sent');
+        } else {
+            $redirect = redirect()->route('dashboard.home')
+            ->with('status', 'success')
+            ->with('message', __('auth.already_activated'));
+
+            Log::info('ActivateController: user already activated');
         }
 
-        return redirect()->route('public.home')
-            ->with('status', 'success')
-            ->with('message', 'Already activated.');
+        return $redirect;
     }
 
 }
