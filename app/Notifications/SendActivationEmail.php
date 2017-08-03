@@ -45,11 +45,11 @@ class SendActivationEmail extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Activation email')
-                    ->greeting('Hello!')
-                    ->line('You need to activate your email before you can start using all of our services.')
-                    ->action('Activate Email', route('authenticated.activate', ['token' => $this->token]))
-                    ->line('Thank you for using our application!');
+                    ->subject(__('auth.activation_email'))
+                    ->greeting(__('auth.hello'))
+                    ->line(__('auth.activate_your_account'))
+                    ->action(__('auth.activate_email'), route('authenticated.activate', ['token' => $this->token]))
+                    ->line(__('auth.thank_you_app'));
     }
 
     /**

@@ -72,7 +72,7 @@ class LoginController extends Controller
             }
         } else {
             $redirect = redirect()->back()
-                ->with('message','Incorrect email or password')
+                ->with('message', __('auth.incorrect_login'))
                 ->with('status', 'danger')
                 ->withInput();
         }

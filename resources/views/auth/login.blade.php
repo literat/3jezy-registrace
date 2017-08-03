@@ -27,7 +27,7 @@
 
         <h2 class="form-signin-heading">@lang('auth.please_sign_in')</h2>
 
-        <label for="inputEmail" class="sr-only">@lang('auth.email_adderess')</label>
+        <label for="inputEmail" class="sr-only">@lang('auth.email_address')</label>
         {!! Form::email('email', null, [
             'class'                         => 'form-control',
             'placeholder'                   => __('auth.email_address'),
