@@ -60,5 +60,7 @@ return [
     'successfully_activated' => 'Váš účet byl úspěšně aktivován!',
     'activation_sent' => 'Aktivační e-mail odeslán.',
     'already_activated' => 'Účet je již aktivační.',
+    'set_new_password' => 'Nastavení nového hesla',
+    'change' => 'Změnit',
 
 ];

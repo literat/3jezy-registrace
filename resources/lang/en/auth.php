@@ -27,4 +27,6 @@ into your web browser: [ :actionUrl ]( :actionUrl )',
     'successfully_activated' => 'You successfully activated your email!',
     'activation_sent' => 'Activation email sent.',
     'already_activated' => 'Already activated.',
+    'set_new_password' => 'Set New Password',
+    'change' => 'change',
 ];
