@@ -11,12 +11,12 @@
             @lang('auth.facebook', ['sign_type' => __('auth.' . $sign_type)])
         </a>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    {{-- <div class="col-md-12 col-sm-12 col-xs-12">
         <a href="{{ route('social.redirect', ['provider' => 'twitter']) }}" class="btn btn-lg  waves-effect waves-light btn-block twitter">
             <i class="fa fa-twitter"></i>
             @lang('auth.twitter', ['sign_type' => __('auth.' . $sign_type)])
         </a>
-    </div>
+    </div> --}}
     <div class="col-md-12 col-sm-12 col-xs-12">
         <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg waves-effect waves-light btn-block google">
             <i class="fa fa-google-plus-official"></i>
