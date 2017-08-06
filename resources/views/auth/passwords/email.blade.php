@@ -25,6 +25,7 @@
 
         @include('includes.status')
         @include('includes.errors')
+        @include('partials.status-panel')
 
         <h2 class="form-signin-heading">@lang('auth.password_reset')</h2>
         <label for="inputEmail" class="sr-only">@lang('auth.email_address')</label>
