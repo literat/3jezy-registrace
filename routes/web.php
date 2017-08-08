@@ -37,8 +37,21 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:user'], function()
 
 Route::group(['middleware' => 'auth:all'], function()
 {
-    $s = 'dashboard.';
-    Route::get('/', ['as' => $s . 'home', 'uses' => 'PagesController@getHome']);
+    Route::get('/');
+
+    $s = 'all.';
+    Route::get('/dashboard', ['as' => $s . 'dashboard', 'uses' => 'PagesController@getHome']);
+    Route::get('/categories', ['as' => $s . 'categories', 'uses' => 'PagesController@getHome']);
+    Route::get('/users', ['as' => $s . 'users', 'uses' => 'PagesController@getHome']);
+    Route::get('/constraints', ['as' => $s . 'constraints', 'uses' => 'PagesController@getHome']);
+    Route::get('/checkpoints', ['as' => $s . 'checkpoints', 'uses' => 'PagesController@getHome']);
+    Route::get('/competitors', ['as' => $s . 'competitors', 'uses' => 'PagesController@getHome']);
+    Route::get('/contests', ['as' => $s . 'contests', 'uses' => 'PagesController@getHome']);
+    Route::get('/teams', ['as' => $s . 'teams', 'uses' => 'PagesController@getHome']);
+    Route::get('/settings', ['as' => $s . 'settings', 'uses' => 'PagesController@getHome']);
+
+    Route::resource('roles', 'RolesController', ['as' => $s . 'roles']);
+
     $a = 'authenticated.';
     Route::get('/logout', ['as' => $a . 'logout', 'uses' => 'Auth\LoginController@logout']);
     Route::get('/activate/{token}', ['as' => $a . 'activate', 'uses' => 'ActivateController@activate']);

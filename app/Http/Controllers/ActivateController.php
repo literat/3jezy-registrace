@@ -13,6 +13,8 @@ class ActivateController extends Controller
 
     use ActivationTrait;
 
+    const ROUTE_DASHBOARD = 'all.dashboard';
+
     /**
      * @param  string $token
      * @return string
@@ -22,7 +24,7 @@ class ActivateController extends Controller
         Log::info('ActivateController: try to activate user by token: ' . $token);
 
         if (auth()->user()->activated) {
-            $redirect = redirect()->route('dashboard.home')
+            $redirect = redirect()->route(self::ROUTE_DASHBOARD)
                 ->with('status', 'success')
                 ->with('message', __('auth.email_already_activated'));
         } else {
@@ -31,7 +33,7 @@ class ActivateController extends Controller
                 ->first();
 
             if (empty($activation)) {
-                $redirect = redirect()->route('dashboard.home')
+                $redirect = redirect()->route(self::ROUTE_DASHBOARD)
                     ->with('status', 'wrong')
                     ->with('message', __('auth.no_such_token_in_db'));
             } else {
@@ -42,7 +44,7 @@ class ActivateController extends Controller
 
                 session()->forget('above-navbar-message');
 
-                $redirect = redirect()->route('dashboard.home')
+                $redirect = redirect()->route(self::ROUTE_DASHBOARD)
                     ->with('status', 'success')
                     ->with('message', __('auth.successfully_activated'));
             }
@@ -64,13 +66,13 @@ class ActivateController extends Controller
             if (auth()->user()->activated == false) {
                 $this->initiateEmailActivation(auth()->user());
 
-                $redirect = redirect()->route('dashboard.home')
+                $redirect = redirect()->route(self::ROUTE_DASHBOARD)
                     ->with('status', 'success')
                     ->with('message', __('auth.activation_sent'));
 
                 Log::info('ActivateController: activation email sent');
             } else {
-                $redirect = redirect()->route('dashboard.home')
+                $redirect = redirect()->route(self::ROUTE_DASHBOARD)
                 ->with('status', 'success')
                 ->with('message', __('auth.already_activated'));
 

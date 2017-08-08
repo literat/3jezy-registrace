@@ -55,7 +55,7 @@
                 <!--Links-->
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard.home')  }}"><i class="fa fa-home"></i> Home</a>
+                        <a class="nav-link" href="{{ route('all.dashboard')  }}"><i class="fa fa-home"></i> Home</a>
                     </li>
                 </ul>
 
