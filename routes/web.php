@@ -42,7 +42,6 @@ Route::group(['middleware' => 'auth:all'], function()
     $s = 'all.';
     Route::get('/dashboard', ['as' => $s . 'dashboard', 'uses' => 'PagesController@getHome']);
     Route::get('/categories', ['as' => $s . 'categories', 'uses' => 'PagesController@getHome']);
-    Route::get('/users', ['as' => $s . 'users', 'uses' => 'PagesController@getHome']);
     Route::get('/constraints', ['as' => $s . 'constraints', 'uses' => 'PagesController@getHome']);
     Route::get('/checkpoints', ['as' => $s . 'checkpoints', 'uses' => 'PagesController@getHome']);
     Route::get('/competitors', ['as' => $s . 'competitors', 'uses' => 'PagesController@getHome']);
@@ -50,6 +49,7 @@ Route::group(['middleware' => 'auth:all'], function()
     Route::get('/teams', ['as' => $s . 'teams', 'uses' => 'PagesController@getHome']);
     Route::get('/settings', ['as' => $s . 'settings', 'uses' => 'PagesController@getHome']);
 
+    Route::resource('users', 'UsersController', ['as' => $s . 'users']);
     Route::resource('roles', 'RolesController', ['as' => $s . 'roles']);
 
     $a = 'authenticated.';

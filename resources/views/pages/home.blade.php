@@ -27,7 +27,7 @@
                 <a href="{{ route('all.teams') }}">Posádky</a>
             </li>
             <li>
-                <a href="{{ route('all.users') }}">Uživatelé</a>
+                <a href="{{ URL::to('users') }}">Uživatelé</a>
             </li>
             <li>
                 <a href="{{ route('all.settings') }}">Nastavení</a>

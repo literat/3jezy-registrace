@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Roles;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-class RolesController extends Controller
+class UsersController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +20,9 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Roles::all();
+        $users = User::all();
 
-        return View::make('roles.index')->with('roles', $roles);
+        return View::make('users.index')->with('users', $users);
     }
 
     /**
@@ -31,8 +32,8 @@ class RolesController extends Controller
      */
     public function create()
     {
-        // load the create form (app/views/roles/create.blade.php)
-        return View::make('roles.create');
+        // load the create form (app/views/users/create.blade.php)
+        return View::make('users.create');
     }
 
     /**
@@ -45,25 +46,30 @@ class RolesController extends Controller
     {
         // validate
         // read more on validation at http://laravel.com/docs/validation
-        $rules = [
-            'name' => 'required',
+        $users = [
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'email'      => 'required',
         ];
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $users);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('roles/create')
+            return Redirect::to('users/create')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $role = new Roles;
-            $role->name       = Input::get('name');
-            $role->save();
+            $user = new User;
+            $user->first_name = Input::get('first_name');
+            $user->last_name = Input::get('last_name');
+            $user->email = Input::get('email');
+            $user->activated = Input::get('activated');
+            $user->save();
 
             // redirect
-            Session::flash('message', 'Successfully created role!');
-            return Redirect::to('roles');
+            Session::flash('message', 'Successfully created user!');
+            return Redirect::to('users');
         }
     }
 
@@ -76,10 +82,10 @@ class RolesController extends Controller
     public function show($id)
     {
         // get the nerd
-        $role = Roles::find($id);
+        $user = User::find($id);
         // show the view and pass the nerd to it
-        return View::make('roles.show')
-            ->with('role', $role);
+        return View::make('users.show')
+            ->with('user', $user);
     }
 
     /**
@@ -91,10 +97,10 @@ class RolesController extends Controller
     public function edit($id)
     {
         // get the nerd
-        $role = Roles::find($id);
+        $user = User::find($id);
         // show the edit form and pass the nerd
-        return View::make('roles.edit')
-            ->with('role', $role);
+        return View::make('users.edit')
+            ->with('user', $user);
     }
 
     /**
@@ -108,23 +114,28 @@ class RolesController extends Controller
     {
         // validate
         // read more on validation at http://laravel.com/docs/validation
-        $rules = [
-            'name' => 'required',
+        $users = [
+            'first_name' => 'required',
+            'last_name'  => 'required',
+            'email'      => 'required',
         ];
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $users);
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('roles/' . $id . '/edit')
+            return Redirect::to('users/' . $id . '/edit')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $role = Roles::find($id);
-            $role->name = Input::get('name');
-            $role->save();
+            $user = User::find($id);
+            $user->first_name = Input::get('first_name');
+            $user->last_name = Input::get('last_name');
+            $user->email = Input::get('email');
+            $user->activated = Input::get('activated', '0');
+            $user->save();
             // redirect
-            Session::flash('message', 'Successfully updated role!');
-            return Redirect::to('roles');
+            Session::flash('message', 'Successfully updated user!');
+            return Redirect::to('users');
         }
     }
 
@@ -137,11 +148,11 @@ class RolesController extends Controller
     public function destroy($id)
     {
         // delete
-        $role = Roles::find($id);
-        $role->delete();
+        $user = User::find($id);
+        $user->delete();
         // redirect
-        Session::flash('message', 'Successfully deleted the role!');
-        return Redirect::to('roles');
+        Session::flash('message', 'Successfully deleted the user!');
+        return Redirect::to('users');
     }
 
 }
