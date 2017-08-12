@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Roles;
+use App\Models\Role;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -19,7 +19,7 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Roles::all();
+        $roles = Role::all();
 
         return View::make('roles.index')->with('roles', $roles);
     }
@@ -57,7 +57,7 @@ class RolesController extends Controller
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $role = new Roles;
+            $role = new Role;
             $role->name       = Input::get('name');
             $role->save();
 
@@ -76,7 +76,7 @@ class RolesController extends Controller
     public function show($id)
     {
         // get the nerd
-        $role = Roles::find($id);
+        $role = Role::find($id);
         // show the view and pass the nerd to it
         return View::make('roles.show')
             ->with('role', $role);
@@ -91,7 +91,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         // get the nerd
-        $role = Roles::find($id);
+        $role = Role::find($id);
         // show the edit form and pass the nerd
         return View::make('roles.edit')
             ->with('role', $role);
@@ -119,7 +119,7 @@ class RolesController extends Controller
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $role = Roles::find($id);
+            $role = Role::find($id);
             $role->name = Input::get('name');
             $role->save();
             // redirect
@@ -137,7 +137,7 @@ class RolesController extends Controller
     public function destroy($id)
     {
         // delete
-        $role = Roles::find($id);
+        $role = Role::find($id);
         $role->delete();
         // redirect
         Session::flash('message', 'Successfully deleted the role!');

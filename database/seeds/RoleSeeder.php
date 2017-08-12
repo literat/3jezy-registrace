@@ -8,11 +8,11 @@ class RoleSeeder extends Seeder{
     public function run(){
         DB::table('roles')->delete();
 
-        Roles::create([
+        Role::create([
             'name'   => 'user'
         ]);
 
-        Roles::create([
+        Role::create([
             'name'   => 'administrator'
         ]);
 

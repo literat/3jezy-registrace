@@ -47,6 +47,11 @@
                 {{ Form::checkbox('activated', Input::old('activated'), null, array('class' => 'form-control')) }}
             </div>
 
+            <div class="form-group">
+                {{ Form::label('roles', 'Roles') }}
+                {{ Form::select('roles', $roles, Input::old('roles'), array('class' => 'form-control')) }}
+            </div>
+
             {{ Form::submit('Create!', array('class' => 'btn btn-primary')) }}
 
         {{ Form::close() }}

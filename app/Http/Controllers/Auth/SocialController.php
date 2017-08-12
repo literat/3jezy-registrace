@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use App\Models\Social;
 use App\Models\User;
-use App\Models\Roles;
+use App\Models\Role;
 
 class SocialController extends Controller
 {
@@ -85,7 +85,7 @@ class SocialController extends Controller
                 $newSocialUser->social()->save($socialData);
 
                 // Add role
-                $role = Roles::whereName('user')->first();
+                $role = Role::whereName('user')->first();
                 $newSocialUser->assignRole($role);
 
                 $socialUser = $newSocialUser;

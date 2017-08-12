@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Traits\ActivationTrait;
 use App\Models\User;
-use App\Models\Roles;
+use App\Models\Role;
 
 /**
  |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class RegisterController extends Controller
             'activated'  => !config('settings.activation')
         ]);
 
-        $role = Roles::whereName('user')->first();
+        $role = Role::whereName('user')->first();
         $user->assignRole($role);
 
         $this->initiateEmailActivation($user);

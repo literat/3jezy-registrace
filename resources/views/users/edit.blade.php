@@ -37,6 +37,11 @@
             {{ Form::checkbox('activated', '1', null, array('class' => 'form-control')) }}
         </div>
 
+        <div class="form-group">
+                {{ Form::label('roles', 'Roles') }}
+                {{ Form::select('roles', $roles, null, array('class' => 'form-control')) }}
+            </div>
+
         {{ Form::submit('Edit!', array('class' => 'btn btn-primary')) }}
 
     {{ Form::close() }}

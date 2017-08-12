@@ -20,6 +20,7 @@
                     <td>Last Name</td>
                     <td>Email/Login</td>
                     <td>Activated</td>
+                    <td>Roles</td>
                     <td>Created at</td>
                     <td>Updated at</td>
                 </tr>
@@ -32,6 +33,11 @@
                     <td>{{ $user->last_name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->activated }}</td>
+                    <td>
+                    @foreach($user->roles as $role)
+                        <span> {{ $role->name }}</span>
+                    @endforeach
+                    </td>
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->updated_at }}</td>
 

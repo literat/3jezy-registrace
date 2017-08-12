@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Roles;
+use App\Models\Role;
 use App\Traits\ActivationTrait;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Collection;
 
 class UsersController extends Controller
 {
@@ -37,7 +38,8 @@ class UsersController extends Controller
     public function create()
     {
         // load the create form (app/views/users/create.blade.php)
-        return View::make('users.create');
+        return View::make('users.create')
+            ->with('roles', $this->findAllRolesForSelect());
     }
 
     /**
@@ -75,7 +77,7 @@ class UsersController extends Controller
                 'activated'  => !config('settings.activation')
             ]);
 
-            $role = Roles::whereName('user')->first();
+            $role = Role::whereName('user')->first();
             $user->assignRole($role);
             $user->save();
 
@@ -112,9 +114,11 @@ class UsersController extends Controller
     {
         // get the nerd
         $user = User::find($id);
+
         // show the edit form and pass the nerd
         return View::make('users.edit')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('roles', $this->findAllRolesForSelect());
     }
 
     /**
@@ -146,6 +150,10 @@ class UsersController extends Controller
             $user->last_name = Input::get('last_name');
             $user->email = Input::get('email');
             $user->activated = Input::get('activated', '0');
+
+            $role = Role::find(Input::get('roles'));
+            $user->assignRole($role);
+
             $user->save();
             // redirect
             Session::flash('message', 'Successfully updated user!');
@@ -167,6 +175,14 @@ class UsersController extends Controller
         // redirect
         Session::flash('message', 'Successfully deleted the user!');
         return Redirect::to('users');
+    }
+
+    /**
+     * @return Collection
+     */
+    protected function findAllRolesForSelect(): Collection
+    {
+        return Role::all()->pluck('name', 'id');
     }
 
 }

@@ -68,7 +68,8 @@ class LoginController extends Controller
             }
 
             if ( $this->auth->user()->hasRole('administrator')) {
-                $redirect = redirect()->route('admin.home');
+                //$redirect = redirect()->route('admin.home');
+                $redirect = redirect()->route('all.dashboard');
             }
         } else {
             $redirect = redirect()->back()

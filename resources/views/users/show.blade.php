@@ -19,6 +19,9 @@
         <p>{{ $user->last_name }}</p>
         <p>{{ $user->email }}</p>
         <p>{{ $user->activated }}</p>
+        @foreach($user->roles as $role)
+        <p>{{ $role->name }}</p>
+        @endforeach
         <p>{{ $user->created_at }}</p>
         <p>{{ $user->updated_at }}</p>
 
