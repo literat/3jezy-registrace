@@ -51,7 +51,13 @@
         "deploy": "vendor/bin/deployment deployment.ini",
         "deploy-test": "vendor/bin/deployment deployment.ini --test",
         "serve": "php artisan serve",
-        "test": "phpunit"
+        "clearcfg": "php artisan config:clear",
+        "cachecfg": "php artisan config:cache",
+        "test": [
+            "@cachecfg",
+            "phpunit",
+            "@clearcfg"
+        ]
     },
     "config": {
         "preferred-install": "dist",
