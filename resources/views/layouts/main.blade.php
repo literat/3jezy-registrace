@@ -9,7 +9,7 @@
 
     <meta name="description" content="@lang('app.description')">
     <meta name="author" content="Tomas Litera">
-    <link rel="shortcut icon" href="https://tuts.codingo.me/assets/img/box.png">
+    <link rel="shortcut icon" href="/img/favicon_1.ico">
 
     <meta property="og:url" content="https://registrace.3jezy.cz/">
     <meta property="og:title" content="@lang('app.og_title')">

@@ -50,3 +50,18 @@
 .sign-switcher {
     float: right;
 }
+
+.social div {
+    padding-bottom: 15px;
+}
+
+.social div .btn-block div {
+    font-size: 33px;
+    padding: 7px 10px;
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    left: 0;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    width: 50px;
+}
