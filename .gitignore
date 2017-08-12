@@ -9,6 +9,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env*
+!.env.testing
 *.sublime*
 .phpintel
 *.log

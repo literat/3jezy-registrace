@@ -1,5 +1,7 @@
 # 3 jezy | Registration App
 
+[![Build Status](https://travis-ci.org/literat/3jezy-registrace.svg?branch=master)](https://travis-ci.org/literat/3jezy-registrace)
+
 ## Development
 
 * commit messages should follow [rules](docs/commit-messages.md) for easier release process
