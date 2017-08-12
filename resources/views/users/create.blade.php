@@ -29,7 +29,17 @@
 
             <div class="form-group">
                 {{ Form::label('email', 'Email') }}
-                {{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
+                {{ Form::email('email', Input::old('email'), array('class' => 'form-control')) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('password', 'Password') }}
+                {{ Form::password('password', Input::old('password'), array('class' => 'form-control')) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('password_confirmation', 'Password Confirmation') }}
+                {{ Form::password('password_confirmation', Input::old('password_confirmation'), array('class' => 'form-control')) }}
             </div>
 
             <div class="form-group">

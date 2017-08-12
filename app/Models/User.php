@@ -47,6 +47,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return false;
     }
 
+    /**
+     * @param  mixed $role
+     * @return void
+     */
     public function assignRole($role)
     {
         return $this->roles()->attach($role);

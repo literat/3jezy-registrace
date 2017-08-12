@@ -89,11 +89,11 @@ class RegisterController extends Controller
     {
         $user =  User::create([
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'token' => str_random(64),
-            'activated' => !config('settings.activation')
+            'last_name'  => $data['last_name'],
+            'email'      => $data['email'],
+            'password'   => bcrypt($data['password']),
+            'token'      => str_random(64),
+            'activated'  => !config('settings.activation')
         ]);
 
         $role = Roles::whereName('user')->first();

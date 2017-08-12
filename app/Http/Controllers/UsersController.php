@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Roles;
+use App\Traits\ActivationTrait;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -12,6 +14,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
 {
+
+    use ActivationTrait;
 
     /**
      * Display a listing of the resource.
@@ -47,9 +51,11 @@ class UsersController extends Controller
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $users = [
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required',
+            'first_name'            => 'required',
+            'last_name'             => 'required',
+            'email'                 => 'required',
+            'password'              => 'required|min:6|max:20',
+            'password_confirmation' => 'required|same:password',
         ];
         $validator = Validator::make(Input::all(), $users);
 
@@ -60,12 +66,20 @@ class UsersController extends Controller
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $user = new User;
-            $user->first_name = Input::get('first_name');
-            $user->last_name = Input::get('last_name');
-            $user->email = Input::get('email');
-            $user->activated = Input::get('activated');
+            $user =  User::create([
+                'first_name' => Input::get('first_name'),
+                'last_name'  => Input::get('last_name'),
+                'email'      => Input::get('email'),
+                'password'   => bcrypt(Input::get('password')),
+                'token'      => str_random(64),
+                'activated'  => !config('settings.activation')
+            ]);
+
+            $role = Roles::whereName('user')->first();
+            $user->assignRole($role);
             $user->save();
+
+            $this->initiateEmailActivation($user);
 
             // redirect
             Session::flash('message', 'Successfully created user!');
