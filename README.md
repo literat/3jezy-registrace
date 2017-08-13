@@ -1,6 +1,6 @@
 # 3 jezy | Registration App
 
-[![Build Status](https://travis-ci.org/literat/3jezy-registrace.svg?branch=master)](https://travis-ci.org/literat/3jezy-registrace)
+[![Build Status](https://travis-ci.org/literat/3jezy-registrace.svg?branch=master)](https://travis-ci.org/literat/3jezy-registrace) [![Coverage Status](https://coveralls.io/repos/github/literat/3jezy-registrace/badge.svg)](https://coveralls.io/github/literat/3jezy-registrace)
 
 ## Development
 
