@@ -1,0 +1,4 @@
+#.coveralls.yml
+
+# single file
+coverage_clover: tests/clover.xml
