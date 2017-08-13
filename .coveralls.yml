@@ -1,4 +1,7 @@
 #.coveralls.yml
 
+service_name: travis-ci
+
 # single file
 coverage_clover: tests/clover.xml
+json_path: tests/coveralls-upload.json
