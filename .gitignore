@@ -15,3 +15,5 @@ npm-debug.log
 *.log
 *.sql
 deployment.ini
+/tests/codeCoverage*
+/tests/clover.xml

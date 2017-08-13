@@ -12,3 +12,7 @@ before_script:
 
 script:
   - composer test
+
+  after_success:
+  # enable logging
+  - travis_retry php vendor/bin/coveralls -v
