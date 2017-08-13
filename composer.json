@@ -56,7 +56,7 @@
         "cachecfg": "php artisan config:cache",
         "test": [
             "@cachecfg",
-            "phpunit",
+            "phpunit && cat tests/codeCoverage.txt || exit 1",
             "@clearcfg"
         ]
     },
