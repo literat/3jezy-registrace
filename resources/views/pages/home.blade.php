@@ -21,7 +21,7 @@
                 <a href="{{ route('all.competitors') }}">Závodníci</a>
             </li>
             <li>
-                <a href="{{ route('all.contests') }}">Závody</a>
+                <a href="{{ URL::to('contests') }}">Závody</a>
             </li>
             <li>
                 <a href="{{ route('all.teams') }}">Posádky</a>

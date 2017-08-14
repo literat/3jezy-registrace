@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
 use Illuminate\Http\Request;
-use App\Models\Role;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-class RolesController extends Controller
+class ContestsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $contest = Contest::all();
 
-        return View::make('roles.index')->with('roles', $roles);
+        return View::make('contests.index')->with('contests', $contest);
     }
 
     /**
@@ -31,8 +31,8 @@ class RolesController extends Controller
      */
     public function create()
     {
-        // load the create form (app/views/roles/create.blade.php)
-        return View::make('roles.create');
+        // load the create form (app/views/contests/create.blade.php)
+        return View::make('contests.create');
     }
 
     /**
@@ -45,25 +45,29 @@ class RolesController extends Controller
     {
         // validate
         // read more on validation at http://laravel.com/docs/validation
-        $rules = [
-            'name' => 'required',
+        $contests = [
+            'name'       => 'required',
+            'started_at' => 'required',
+            'ended_at'  => 'required',
         ];
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $contests);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('roles/create')
+            return Redirect::to('contests/create')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $role = new Role;
-            $role->name       = Input::get('name');
-            $role->save();
+            $contest = new Contest;
+            $contest->name       = Input::get('name');
+            $contest->started_at = Input::get('started_at');
+            $contest->ended_at   = Input::get('ended_at');
+            $contest->save();
 
             // redirect
-            Session::flash('message', 'Successfully created role!');
-            return Redirect::to('roles');
+            Session::flash('message', 'Successfully created contest!');
+            return Redirect::to('contests');
         }
     }
 
@@ -75,11 +79,11 @@ class RolesController extends Controller
      */
     public function show($id)
     {
-        // get the role
-        $role = Role::find($id);
+        // get the contest
+        $contest = Contest::find($id);
         // show the view and pass the nerd to it
-        return View::make('roles.show')
-            ->with('role', $role);
+        return View::make('contests.show')
+            ->with('contest', $contest);
     }
 
     /**
@@ -90,11 +94,11 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        // get the role
-        $role = Role::find($id);
+        // get the contest
+        $contest = Contest::find($id);
         // show the edit form and pass the nerd
-        return View::make('roles.edit')
-            ->with('role', $role);
+        return View::make('contests.edit')
+            ->with('contest', $contest);
     }
 
     /**
@@ -108,23 +112,27 @@ class RolesController extends Controller
     {
         // validate
         // read more on validation at http://laravel.com/docs/validation
-        $rules = [
-            'name' => 'required',
+        $contests = [
+            'name'       => 'required',
+            'started_at' => 'required',
+            'ended_at'   => 'required',
         ];
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $contests);
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('roles/' . $id . '/edit')
+            return Redirect::to('contests/' . $id . '/edit')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $role = Role::find($id);
-            $role->name = Input::get('name');
-            $role->save();
+            $contest = Contest::find($id);
+            $contest->name = Input::get('name');
+            $contest->started_at = Input::get('started_at');
+            $contest->ended_at = Input::get('ended_at');
+            $contest->save();
             // redirect
-            Session::flash('message', 'Successfully updated role!');
-            return Redirect::to('roles');
+            Session::flash('message', 'Successfully updated contest!');
+            return Redirect::to('contests');
         }
     }
 
@@ -137,11 +145,11 @@ class RolesController extends Controller
     public function destroy($id)
     {
         // delete
-        $role = Role::find($id);
-        $role->delete();
+        $contest = Contest::find($id);
+        $contest->delete();
         // redirect
-        Session::flash('message', 'Successfully deleted the role!');
-        return Redirect::to('roles');
+        Session::flash('message', 'Successfully deleted the contest!');
+        return Redirect::to('contests');
     }
 
 }
