@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Contest extends Model
+class Category extends Model
 {
 
     use SoftDeletes;
@@ -15,8 +15,8 @@ class Contest extends Model
      */
     protected $fillable = [
         'name',
-        'started_at',
-        'ended_at',
+        'description',
+        'shortcut',
     ];
 
     /**
@@ -27,13 +27,4 @@ class Contest extends Model
     protected $dates = [
         'deleted_at'
     ];
-
-    /**
-     * @return Category
-     */
-    public function categories()
-    {
-        return $this->hasMany('App\Models\Category');
-    }
-
 }

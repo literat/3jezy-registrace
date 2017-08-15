@@ -80,7 +80,8 @@ class ContestsController extends Controller
     public function show($id)
     {
         // get the contest
-        $contest = Contest::find($id);
+        $contest = Contest::find($id)->first();
+
         // show the view and pass the nerd to it
         return View::make('contests.show')
             ->with('contest', $contest);
