@@ -24,7 +24,7 @@
                 <a href="{{ route('contests.index') }}">Závody</a>
             </li>
             <li>
-                <a href="{{ route('all.teams') }}">Posádky</a>
+                <a href="{{ route('teams.index') }}">Posádky</a>
             </li>
             <li>
                 <a href="{{ route('users.index') }}">Uživatelé</a>

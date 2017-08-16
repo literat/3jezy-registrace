@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth:all'], function()
     Route::resource('roles',               'RolesController');
     Route::resource('contests',            'ContestsController');
     Route::resource('contests.categories', 'CategoriesController');
+    Route::resource('teams',               'TeamsController');
 
     $a = 'authenticated.';
     Route::get('/logout', ['as' => $a . 'logout', 'uses' => 'Auth\LoginController@logout']);
