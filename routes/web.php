@@ -47,21 +47,10 @@ Route::group(['middleware' => 'auth:all'], function()
     Route::get('/teams', ['as' => $s . 'teams', 'uses' => 'PagesController@getHome']);
     Route::get('/settings', ['as' => $s . 'settings', 'uses' => 'PagesController@getHome']);
 
-    Route::resource('users',      'UsersController',      ['as' => $s . 'users']);
-    Route::resource('roles',      'RolesController',      ['as' => $s . 'roles']);
-
-    Route::resource('contests',   'ContestsController',   ['as' => $s . 'contests']);
-
-    Route::group(['prefix' => 'contests'], function () use ($s)
-    {
-        //Route::get('/',   ['as' => $s . 'contests', 'uses' => 'ContestsController@index']);
-
-        Route::group(['prefix' => '{contest}'], function () use ($s)
-        {
-            //Route::resource('',   'ContestsController',   ['as' => $s . 'contests', 'except' => ['index']]);
-            Route::resource('categories', 'CategoriesController', ['as' => $s . 'categories']);
-        });
-    });
+    Route::resource('users',               'UsersController');
+    Route::resource('roles',               'RolesController');
+    Route::resource('contests',            'ContestsController');
+    Route::resource('contests.categories', 'CategoriesController');
 
     $a = 'authenticated.';
     Route::get('/logout', ['as' => $a . 'logout', 'uses' => 'Auth\LoginController@logout']);

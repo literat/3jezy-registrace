@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
+
 class PagesController extends Controller
 {
 
@@ -10,7 +12,8 @@ class PagesController extends Controller
      */
     public function getHome()
     {
-        return view('pages.home');
+        $contest = Contest::all()->first();
+        return view('pages.home')->with('contest', $contest);
     }
 
 }

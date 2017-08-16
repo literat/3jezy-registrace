@@ -20,7 +20,7 @@ class CategoriesController extends Controller
      */
     public function index(Contest $contest)
     {
-        return View::make('categories.index')->with('categories', $contest->categories);
+        return View::make('categories.index')->with('contest', $contest);
     }
 
     /**
@@ -77,13 +77,12 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Contest $contest, Category $category)
     {
-        // get the category
-        $category = Category::find($id);
         // show the view and pass the nerd to it
         return View::make('categories.show')
-            ->with('category', $category);
+            ->with('category', $category)
+            ->with('contest', $contest);
     }
 
     /**
@@ -92,13 +91,12 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Contest $contest, Category $category)
     {
-        // get the category
-        $category = Category::find($id);
         // show the edit form and pass the nerd
         return View::make('categories.edit')
-            ->with('category', $category);
+            ->with('category', $category)
+            ->with('contest', $contest);
     }
 
     /**
@@ -108,7 +106,7 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Contest $contest, Category $category)
     {
         // validate
         // read more on validation at http://laravel.com/docs/validation
@@ -120,19 +118,18 @@ class CategoriesController extends Controller
         $validator = Validator::make(Input::all(), $categories);
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('categories/' . $id . '/edit')
+            return back()
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $category = Category::find($id);
             $category->name = Input::get('name');
             $category->description = Input::get('description');
             $category->shortcut = Input::get('shortcut');
             $category->save();
             // redirect
             Session::flash('message', 'Successfully updated category!');
-            return Redirect::to('categories');
+            return redirect()->route('contests.categories.index', ['contest' => $contest]);
         }
     }
 
@@ -142,14 +139,13 @@ class CategoriesController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Contest $contest, Category $category)
     {
         // delete
-        $category = Category::find($id);
         $category->delete();
         // redirect
         Session::flash('message', 'Successfully deleted the category!');
-        return Redirect::to('contests');
+        return redirect()->route('contests.categories.index', ['contest' => $contest]);
     }
 
 }

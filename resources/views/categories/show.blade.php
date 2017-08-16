@@ -5,7 +5,6 @@
         @include('partials.status-panel')
 
     <div class="jumbotron" style="margin-top:-20px;">
-        <h1>Categories</h1>
 
         @include('categories.navbar')
 

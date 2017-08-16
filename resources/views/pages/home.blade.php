@@ -9,7 +9,7 @@
 
         <ul>
             <li>
-            <a href="{{ route('all.categories') }}">Kategorie</a>
+            <a href="{{ route('contests.categories.index', ['contest' => $contest]) }}">Kategorie</a>
             </li>
             <li>
                 <a href="{{ route('all.constraints') }}">Podmínky a omezení</a>
@@ -21,19 +21,19 @@
                 <a href="{{ route('all.competitors') }}">Závodníci</a>
             </li>
             <li>
-                <a href="{{ URL::to('contests') }}">Závody</a>
+                <a href="{{ route('contests.index') }}">Závody</a>
             </li>
             <li>
                 <a href="{{ route('all.teams') }}">Posádky</a>
             </li>
             <li>
-                <a href="{{ URL::to('users') }}">Uživatelé</a>
+                <a href="{{ route('users.index') }}">Uživatelé</a>
             </li>
             <li>
                 <a href="{{ route('all.settings') }}">Nastavení</a>
             </li>
             <li>
-                <a href="{{ URL::to('roles') }}">Role</a>
+                <a href="{{ route('roles.index') }}">Role</a>
             </li>
         </ul>
 

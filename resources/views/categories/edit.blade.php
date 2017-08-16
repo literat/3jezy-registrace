@@ -5,14 +5,20 @@
         @include('partials.status-panel')
 
     <div class="jumbotron" style="margin-top:-20px;">
-        <h1>Categories</h1>
 
         @include('categories.navbar')
 
         <!-- if there are creation errors, they will show here -->
     {{ Html::ul($errors->all()) }}
 
-    {{ Form::model($category, array('action' => array('CategoriesController@update', $category->id), 'method' => 'PUT')) }}
+    {{ Form::model($category, [
+        'action' => [
+            'CategoriesController@update',
+            $contest->id,
+            $category->id,
+        ],
+        'method' => 'PUT'
+    ]) }}
 
         <div class="form-group">
             {{ Form::label('name', 'Name') }}
