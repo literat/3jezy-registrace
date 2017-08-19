@@ -43,7 +43,6 @@ Route::group(['middleware' => 'auth:all'], function()
     Route::get('/dashboard', ['as' => $s . 'dashboard', 'uses' => 'PagesController@getHome']);
     Route::get('/constraints', ['as' => $s . 'constraints', 'uses' => 'PagesController@getHome']);
     Route::get('/checkpoints', ['as' => $s . 'checkpoints', 'uses' => 'PagesController@getHome']);
-    Route::get('/competitors', ['as' => $s . 'competitors', 'uses' => 'PagesController@getHome']);
     Route::get('/teams', ['as' => $s . 'teams', 'uses' => 'PagesController@getHome']);
     Route::get('/settings', ['as' => $s . 'settings', 'uses' => 'PagesController@getHome']);
 
@@ -52,6 +51,7 @@ Route::group(['middleware' => 'auth:all'], function()
     Route::resource('contests',            'ContestsController');
     Route::resource('contests.categories', 'CategoriesController');
     Route::resource('teams',               'TeamsController');
+    Route::resource('competitors',         'CompetitorsController');
 
     $a = 'authenticated.';
     Route::get('/logout', ['as' => $a . 'logout', 'uses' => 'Auth\LoginController@logout']);

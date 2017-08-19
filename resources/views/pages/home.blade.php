@@ -18,7 +18,7 @@
                 <a href="{{ route('all.checkpoints') }}">Stanoviště</a>
             </li>
             <li>
-                <a href="{{ route('all.competitors') }}">Závodníci</a>
+                <a href="{{ route('competitors.index') }}">Závodníci</a>
             </li>
             <li>
                 <a href="{{ route('contests.index') }}">Závody</a>
